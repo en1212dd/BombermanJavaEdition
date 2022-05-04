@@ -2,6 +2,10 @@ package com.bormberman.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -18,8 +22,16 @@ public class GameScreen extends AbstractScreen {
 	public static final short BIT_CIRCLE = 1<<0;
 	public static final short BIT_BOX = 1<<1;
 	public static final short BIT_GROUND = 1<<2;
+    public static final float UNIT_SCALE=1/16f;
+    private final OrthogonalTiledMapRenderer mapRenderer;
+    private final AssetManager assetManager;
+    private final OrthographicCamera orthographicCamera;
     public GameScreen(final Bomberman contextBomberman){
         super(contextBomberman);
+
+        mapRenderer = new OrthogonalTiledMapRenderer(null,UNIT_SCALE,context.getSpriteBatch());
+        this.assetManager = context.getAssetManager();
+        this.orthographicCamera = context.getOrthographicCamera();
 
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
@@ -75,7 +87,9 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        mapRenderer.setMap(assetManager.get("map/stage1_1.tmx",TiledMap.class));
     }
+
 
     @Override
     public void render(float delta) {
@@ -84,6 +98,8 @@ public class GameScreen extends AbstractScreen {
             context.setScreen(ScreenType.LOADING);
         }
         viewport.apply(true);
+        mapRenderer.setView(orthographicCamera);
+        mapRenderer.render();
         box2dDebugRenderer.render(world, viewport.getCamera().combined);
     }
 
@@ -104,7 +120,7 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        
+        mapRenderer.dispose();
     }
 
 }

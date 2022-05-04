@@ -6,6 +6,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -27,18 +32,28 @@ public class Bomberman extends Game {
 	private static final float FIXED_TIME_STEP = 1/60f;
 	private float accumulator;
 
+	private AssetManager assetManager;
+	private OrthographicCamera orthographicCamera;
+
+	private SpriteBatch spriteBatch;
 
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		spriteBatch = new SpriteBatch();
 		accumulator =0;
 		Box2D.init();
 		box2dDebugRenderer = new Box2DDebugRenderer();
 		world= new World(new Vector2(0,-9.81f), true);
 
-		screenViewport = new FitViewport(9, 16);
+		assetManager = new AssetManager();
+		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+
+		orthographicCamera = new OrthographicCamera();
+		screenViewport = new FitViewport(17, 13, orthographicCamera);
 		screenCache = new EnumMap<>(ScreenType.class);
-		setScreen(ScreenType.GAME);
+		setScreen(ScreenType.LOADING);
+
 	}
 	public void setScreen(final ScreenType screenType) {
 		final Screen screen = screenCache.get(screenType);
@@ -69,9 +84,20 @@ public class Bomberman extends Game {
 	}
 	@Override
 	public void dispose() {
+		spriteBatch.dispose();
 		super.dispose();
 		box2dDebugRenderer.dispose();
 		world.dispose();
+		assetManager.dispose();
+	}
+	public SpriteBatch getSpriteBatch() {
+		return spriteBatch;
+	}
+	public OrthographicCamera getOrthographicCamera() {
+		return orthographicCamera;
+	}
+	public AssetManager getAssetManager() {
+		return assetManager;
 	}
 	public Box2DDebugRenderer getBox2dDebugRenderer() {
 		return box2dDebugRenderer;
