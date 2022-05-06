@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bormberman.screens.ScreenType;
 
 public class Bomberman extends Game {
+    public static final float UNIT_SCALE=1/16f;
 	private static final String TAG = Bomberman.class.getSimpleName();
 	private EnumMap<ScreenType, Screen> screenCache;
 	private FitViewport screenViewport;
@@ -44,7 +45,7 @@ public class Bomberman extends Game {
 		accumulator =0;
 		Box2D.init();
 		box2dDebugRenderer = new Box2DDebugRenderer();
-		world= new World(new Vector2(0,-9.81f), true);
+		world= new World(new Vector2(0,0), true);
 
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
