@@ -1,0 +1,55 @@
+
+hud.png
+size: 1024, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+bomberman_nombre
+  rotate: false
+  xy: 0, 63
+  size: 900, 353
+  orig: 900, 353
+  offset: 0, 0
+  index: -1
+frame_corner
+  rotate: false
+  xy: 923, 391
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+frame_horizontal
+  rotate: false
+  xy: 48, 38
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+frame_vertical
+  rotate: false
+  xy: 23, 38
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+knob
+  rotate: false
+  xy: 0, 0
+  size: 3, 31
+  orig: 3, 31
+  offset: 0, 0
+  index: -1
+knob_after
+  rotate: false
+  xy: 0, 31
+  size: 23, 32
+  orig: 23, 32
+  offset: 0, 0
+  index: -1
+knob_before
+  rotate: false
+  xy: 900, 384
+  size: 23, 32
+  orig: 23, 32
+  offset: 0, 0
+  index: -1
