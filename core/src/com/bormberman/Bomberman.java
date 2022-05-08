@@ -7,19 +7,29 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bormberman.screens.ScreenType;
+
+
 
 public class Bomberman extends Game {
     public static final float UNIT_SCALE=1/16f;
@@ -38,17 +48,23 @@ public class Bomberman extends Game {
 
 	private SpriteBatch spriteBatch;
 
+	private Skin skin;
+	private Stage stage;
+
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		spriteBatch = new SpriteBatch();
 		accumulator =0;
+
 		Box2D.init();
 		box2dDebugRenderer = new Box2DDebugRenderer();
 		world= new World(new Vector2(0,0), true);
 
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+		initializeSkin();
+		stage = new Stage(new FitViewport(Gdx.app.getGraphics().getWidth(),Gdx.app.getGraphics().getWidth() ),spriteBatch);
 
 		orthographicCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(17, 13, orthographicCamera);
@@ -82,6 +98,28 @@ public class Bomberman extends Game {
 			accumulator -= FIXED_TIME_STEP;
 		}
 		//final float alpha = accumulator/FIXED_TIME_STEP;
+		stage.getViewport().apply();
+		stage.act();
+		stage.draw();
+	}
+	private void initializeSkin() {
+		//generate ttf bitmaps
+		ObjectMap<String,Object> resources = new ObjectMap<>();
+		FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("interface/font/font.ttf"));
+		FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
+		fontParameter.minFilter = Texture.TextureFilter.Linear;
+		fontParameter.magFilter = Texture.TextureFilter.Linear;
+		final int[] sizesToCreate = {12,20,26,32};
+		for (int size : sizesToCreate) {
+			fontParameter.size = size;
+			resources.put("font_"+size, fontGenerator.generateFont(fontParameter));
+		}
+		fontGenerator.dispose();
+		//load skin
+		SkinLoader.SkinParameter skinParameter = new SkinParameter("interface/hud/hud.atlas",resources);
+		assetManager.load("interface/hud/hud.json",Skin.class,skinParameter);
+		assetManager.finishLoading();
+		skin = assetManager.get("interface/hud/hud.json",Skin.class);
 	}
 	@Override
 	public void dispose() {
@@ -90,6 +128,7 @@ public class Bomberman extends Game {
 		box2dDebugRenderer.dispose();
 		world.dispose();
 		assetManager.dispose();
+		stage.dispose();
 	}
 	public SpriteBatch getSpriteBatch() {
 		return spriteBatch;
@@ -108,6 +147,12 @@ public class Bomberman extends Game {
 	}
 	public FitViewport getScreenViewport() {
 		return screenViewport;
+	}
+	public Skin getSkin() {
+		return skin;
+	}
+	public Stage getStage() {
+		return stage;
 	}
 
 }

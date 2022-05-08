@@ -3,8 +3,11 @@ package com.bormberman.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
+import com.bormberman.ui.LoadingUI;
 
 public class LoadingScreen extends AbstractScreen {
     private final AssetManager assetManager;
@@ -17,17 +20,16 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {
-        
-    }
-
-    @Override
     public void render(float delta) {
-        ScreenUtils.clear(0,1,0,1);
+        ScreenUtils.clear(0,0,0,1);
 
-        if(assetManager.update()) {
-            context.setScreen(ScreenType.GAME);
-        }
+        // if(assetManager.update()) {
+        //     context.setScreen(ScreenType.GAME);
+        // }
+    }
+    @Override
+    protected Table getScreenUI(Skin skin) {
+        return new LoadingUI(stage,skin);
     }
 
     @Override
@@ -40,10 +42,6 @@ public class LoadingScreen extends AbstractScreen {
         
     }
 
-    @Override
-    public void hide() {
-        
-    }
 
     @Override
     public void dispose() {

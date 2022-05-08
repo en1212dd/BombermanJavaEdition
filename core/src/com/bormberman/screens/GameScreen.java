@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
 import com.bormberman.map.CollisionArea;
@@ -102,12 +104,6 @@ public class GameScreen extends AbstractScreen {
             
         }
     }
-
-    @Override
-    public void show() {
-    }
-
-
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0,0,0,1);
@@ -145,17 +141,17 @@ public class GameScreen extends AbstractScreen {
     }
 
     @Override
+    protected Table getScreenUI(Skin skin) {
+        return new Table();
+    }
+
+    @Override
     public void pause() {
         
     }
 
     @Override
     public void resume() {
-        
-    }
-
-    @Override
-    public void hide() {
         
     }
 
