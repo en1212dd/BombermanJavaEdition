@@ -4,12 +4,11 @@ package com.bormberman.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
 import com.bormberman.ui.LoadingUI;
 
-public class LoadingScreen extends AbstractScreen {
+public class LoadingScreen extends AbstractScreen<LoadingUI>{
     private final AssetManager assetManager;
 
     public LoadingScreen(Bomberman contextBomberman) {
@@ -23,13 +22,14 @@ public class LoadingScreen extends AbstractScreen {
     public void render(float delta) {
         ScreenUtils.clear(0,0,0,1);
 
-        // if(assetManager.update()) {
-        //     context.setScreen(ScreenType.GAME);
-        // }
+          if(assetManager.update()) {
+             context.setScreen(ScreenType.GAME);
+         }
+        screenUI.setProgress(assetManager.getProgress());
     }
     @Override
-    protected Table getScreenUI(Skin skin) {
-        return new LoadingUI(stage,skin);
+    protected LoadingUI getScreenUI(Skin skin) {
+        return new LoadingUI(skin);
     }
 
     @Override

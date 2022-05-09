@@ -64,12 +64,12 @@ public class Bomberman extends Game {
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 		initializeSkin();
-		stage = new Stage(new FitViewport(Gdx.app.getGraphics().getWidth(),Gdx.app.getGraphics().getWidth() ),spriteBatch);
+		stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()),spriteBatch);
 
 		orthographicCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(17, 13, orthographicCamera);
 		screenCache = new EnumMap<>(ScreenType.class);
-		setScreen(ScreenType.LOADING);
+		setScreen(ScreenType.MENU);
 
 	}
 	public void setScreen(final ScreenType screenType) {

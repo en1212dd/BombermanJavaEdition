@@ -9,13 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bormberman.Bomberman;
 
-public abstract class AbstractScreen implements Screen {
+public abstract class AbstractScreen<T extends Table> implements Screen {
     protected final Bomberman context;
     protected final FitViewport viewport;
     protected final World world;
     protected final Box2DDebugRenderer box2dDebugRenderer;
     protected final Stage stage;
-    protected final Table screenUI;
+    protected final T screenUI;
 
     public AbstractScreen(final Bomberman context){
         this.context=context;
@@ -25,7 +25,7 @@ public abstract class AbstractScreen implements Screen {
         this.stage = context.getStage();
         screenUI = getScreenUI(context.getSkin());
     }
-    protected abstract Table getScreenUI(Skin skin); 
+    protected abstract T getScreenUI(Skin skin); 
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);

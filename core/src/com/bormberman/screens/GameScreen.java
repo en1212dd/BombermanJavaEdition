@@ -21,7 +21,7 @@ import com.bormberman.map.CollisionArea;
 import com.bormberman.map.Map;
 
 import static com.bormberman.Bomberman.UNIT_SCALE;
-public class GameScreen extends AbstractScreen {
+public class GameScreen extends AbstractScreen<Table> {
     private final BodyDef bodyDef;
     private final FixtureDef fixtureDef;
     private final Body player;
