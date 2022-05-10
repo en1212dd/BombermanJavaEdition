@@ -4,7 +4,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bormberman.Bomberman;
@@ -23,9 +22,9 @@ public abstract class AbstractScreen<T extends Table> implements Screen {
         this.world = context.getWorld();
         this.box2dDebugRenderer = context.getBox2dDebugRenderer();
         this.stage = context.getStage();
-        screenUI = getScreenUI(context.getSkin());
+        screenUI = getScreenUI(context);
     }
-    protected abstract T getScreenUI(Skin skin); 
+    protected abstract T getScreenUI(Bomberman context); 
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);

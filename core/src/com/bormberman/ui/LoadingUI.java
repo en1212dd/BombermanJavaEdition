@@ -2,24 +2,24 @@ package com.bormberman.ui;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.bormberman.Bomberman;
 
 public class LoadingUI extends Table {
     private final ProgressBar progressBar;
     private final TextButton txtButton;
     private final TextButton pressAnyKeyButton;
-    public LoadingUI( Skin skin) {
-        super(skin);
+    public LoadingUI(Bomberman context) {
+        super(context.getSkin());
         setFillParent(true);
 
-        progressBar =  new ProgressBar(0, 1, 0.01f, false, skin,"default");
+        progressBar =  new ProgressBar(0, 1, 0.01f, false,getSkin(),"default");
         progressBar.setAnimateDuration(1);
-        txtButton =  new TextButton("Cargando..", skin,"big");
+        txtButton =  new TextButton("Cargando..", getSkin(),"big");
         txtButton.getLabel().setWrap(true);
 
-        pressAnyKeyButton = new TextButton("Presiona cualquier bot\u00f3n", skin,"normal");
+        pressAnyKeyButton = new TextButton("Presiona cualquier bot\u00f3n", getSkin(),"normal");
         pressAnyKeyButton.getLabel().setWrap(true);
         pressAnyKeyButton.setVisible(false);
 

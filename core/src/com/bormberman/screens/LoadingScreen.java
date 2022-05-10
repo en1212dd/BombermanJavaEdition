@@ -3,7 +3,6 @@ package com.bormberman.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
 import com.bormberman.ui.LoadingUI;
@@ -23,13 +22,13 @@ public class LoadingScreen extends AbstractScreen<LoadingUI>{
         ScreenUtils.clear(0,0,0,1);
 
           if(assetManager.update()) {
-             context.setScreen(ScreenType.GAME);
+            // context.setScreen(ScreenType.GAME);
          }
         screenUI.setProgress(assetManager.getProgress());
     }
     @Override
-    protected LoadingUI getScreenUI(Skin skin) {
-        return new LoadingUI(skin);
+    protected LoadingUI getScreenUI(Bomberman context) {
+        return new LoadingUI(context);
     }
 
     @Override

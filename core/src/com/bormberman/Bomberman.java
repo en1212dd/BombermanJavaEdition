@@ -9,8 +9,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
@@ -23,6 +26,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
@@ -50,6 +54,7 @@ public class Bomberman extends Game {
 
 	private Skin skin;
 	private Stage stage;
+	private I18NBundle i18nBundle;
 
 	@Override
 	public void create() {
@@ -103,6 +108,12 @@ public class Bomberman extends Game {
 		stage.draw();
 	}
 	private void initializeSkin() {
+		//setup markut color
+		Colors.put("orange", Color.ORANGE);
+		Colors.put("black", Color.BLACK);
+		Colors.put("white", Color.WHITE);
+		//converter a = x/255;
+		Colors.put("orangeGame",new Color(0.917f, 0.454f, 0.207f, 1));
 		//generate ttf bitmaps
 		ObjectMap<String,Object> resources = new ObjectMap<>();
 		FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("interface/font/font.ttf"));
@@ -112,14 +123,18 @@ public class Bomberman extends Game {
 		final int[] sizesToCreate = {12,20,26,32};
 		for (int size : sizesToCreate) {
 			fontParameter.size = size;
-			resources.put("font_"+size, fontGenerator.generateFont(fontParameter));
+			BitmapFont bitmapFont =  fontGenerator.generateFont(fontParameter);
+			bitmapFont.getData().markupEnabled = true;
+			resources.put("font_"+size, bitmapFont);
 		}
 		fontGenerator.dispose();
 		//load skin
 		SkinLoader.SkinParameter skinParameter = new SkinParameter("interface/hud/hud.atlas",resources);
 		assetManager.load("interface/hud/hud.json",Skin.class,skinParameter);
+		assetManager.load("properties/Interface",I18NBundle.class);
 		assetManager.finishLoading();
 		skin = assetManager.get("interface/hud/hud.json",Skin.class);
+		i18nBundle = assetManager.get("properties/Interface",I18NBundle.class);
 	}
 	@Override
 	public void dispose() {
@@ -129,6 +144,9 @@ public class Bomberman extends Game {
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
+	}
+	public I18NBundle getI18nBundle() {
+		return i18nBundle;
 	}
 	public SpriteBatch getSpriteBatch() {
 		return spriteBatch;

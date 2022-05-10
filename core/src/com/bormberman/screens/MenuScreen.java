@@ -1,11 +1,9 @@
 package com.bormberman.screens;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.bormberman.Bomberman;
 import com.bormberman.ui.MenuUi;
 
 public class MenuScreen extends AbstractScreen<MenuUi> {
-
     public MenuScreen(Bomberman context) {
         super(context);
     }
@@ -29,8 +27,8 @@ public class MenuScreen extends AbstractScreen<MenuUi> {
     }
 
     @Override
-    protected MenuUi getScreenUI(Skin skin) {
-        return new MenuUi(skin);
+    protected MenuUi getScreenUI(Bomberman context) {
+        return new MenuUi(context);
     }
     
 }
