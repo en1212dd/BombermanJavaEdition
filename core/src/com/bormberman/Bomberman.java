@@ -113,7 +113,7 @@ public class Bomberman extends Game {
 		Colors.put("black", Color.BLACK);
 		Colors.put("white", Color.WHITE);
 		//converter a = x/255;
-		Colors.put("orangeGame",new Color(0.917f, 0.454f, 0.207f, 1));
+		Colors.put("blueGame",new Color(0.196f, 0.274f, 0.843f, 1));
 		//generate ttf bitmaps
 		ObjectMap<String,Object> resources = new ObjectMap<>();
 		FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("interface/font/font.ttf"));
