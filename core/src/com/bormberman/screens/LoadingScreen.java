@@ -22,7 +22,7 @@ public class LoadingScreen extends AbstractScreen<LoadingUI>{
         ScreenUtils.clear(0,0,0,1);
 
           if(assetManager.update()) {
-            // context.setScreen(ScreenType.GAME);
+             context.setScreen(ScreenType.GAME);
          }
         screenUI.setProgress(assetManager.getProgress());
     }

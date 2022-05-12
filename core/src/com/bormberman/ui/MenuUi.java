@@ -16,7 +16,7 @@ public class MenuUi extends Table{
         super(context.getSkin());
         i18nBundle = context.getI18nBundle();
         setFillParent(true);
-        playGame = new MyButton("[blueGame]"+i18nBundle.format("interface.playGame"),getSkin(), "big");
+        playGame = new MyButton("[orangeGame]"+i18nBundle.format("interface.playGame"),getSkin(), "big");
         options = new MyButton(i18nBundle.format("interface.options"), getSkin()  , "big");
         marks = new MyButton(i18nBundle.format("interface.ranking"),  getSkin() , "big");
         title = new Image( getSkin() ,"tittle");
