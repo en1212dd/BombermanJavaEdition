@@ -29,6 +29,5 @@ public class MenuUi extends Table{
         add(marks).width(450).height(55).center().pad(10,10,10,10).row();
         context.getStage().addActor(this);
         Gdx.input.setInputProcessor(context.getStage());
-        //setDebug(true, true);
     }
 }
