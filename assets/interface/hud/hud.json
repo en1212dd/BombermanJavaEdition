@@ -1,23 +1,47 @@
 {
     "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
-        "smille":{
-            "font": "font_12"
+        "smille": {
+            "font": "font_12",
+            "down": "buttomNormalPress",
+            "up": "buttomNormal",
+            "disabled": "buttomNormal"
         },
         "normal": {
-            "font": "font_20"
+            "font": "font_20",
+            "down": "buttomNormalPress",
+            "up": "buttomNormal",
+            "disabled": "buttomNormal"
         },
         "big": {
-            "font": "font_26"
+            "font": "font_26",
+            "down": "buttomNormalPress",
+            "up": "buttomNormal",
+            "disabled": "buttomNormal"
         },
         "huge": {
-            "font": "font_32"
+            "font": "font_32",
+            "down": "buttomNormalPress",
+            "up": "buttomNormal",
+            "disabled": "buttomNormal"
+        },
+        "default": {
+            "font": "font_26",
+            "down": "buttomNormalPress",
+            "up": "buttomNormal",
+            "disabled": "buttomNormal"
+        },
+        "notBackgroudNormal":{
+            "font": "font_20"
+        },
+        "notBackgroundBig":{
+            "font": "font_26"
         }
     },
     "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
-        "default":{
-            "background":"knobAfter",
-            "knob":"knob",
-            "knobBefore":"knobBefore"
+        "default": {
+            "background": "knobAfter",
+            "knob": "knob",
+            "knobBefore": "knobBefore"
         }
     }
 }
