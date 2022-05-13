@@ -33,6 +33,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bormberman.audio.AudioManager;
+import com.bormberman.ecs.ESCEngine;
 import com.bormberman.input.InputManager;
 import com.bormberman.screens.ScreenType;
 
@@ -61,6 +62,8 @@ public class Bomberman extends Game {
 
 	private InputManager inputManager;
 	private AudioManager audioManager;
+
+	private ESCEngine escEngine;
 	@Override
 	public void create() {
 		//set Debug Mode
@@ -81,6 +84,8 @@ public class Bomberman extends Game {
 		//Input creation
 		inputManager = new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
+		//ECS
+		escEngine = new ESCEngine(this);
 		//Set first Screen
 		orthographicCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(17, 13, orthographicCamera);
@@ -108,6 +113,7 @@ public class Bomberman extends Game {
 	@Override
 	public void render() {
 		super.render();
+		escEngine.update(Gdx.graphics.getDeltaTime());
 		accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
 		while (accumulator>=FIXED_TIME_STEP) {
 			world.step(FIXED_TIME_STEP, 6, 2);
@@ -158,6 +164,9 @@ public class Bomberman extends Game {
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
+	}
+	public ESCEngine getEscEngine() {
+		return escEngine;
 	}
 	public AudioManager getAudioManager() {
 		return audioManager;
