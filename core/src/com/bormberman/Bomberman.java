@@ -58,6 +58,7 @@ public class Bomberman extends Game {
 
 	@Override
 	public void create() {
+		//set Debug Mode
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		spriteBatch = new SpriteBatch();
 		accumulator =0;
@@ -81,7 +82,7 @@ public class Bomberman extends Game {
 		final Screen screen = screenCache.get(screenType);
 		if (screen == null) {
 			try {
-				Gdx.app.debug(TAG, "Creando una nueva scena llamada: " + screenType);
+				Gdx.app.debug(TAG, "Creando una nueva escena llamada: " + screenType);
 				final Screen newScreen = (Screen) ClassReflection
 						.getConstructor(screenType.getScreenClass(), Bomberman.class).newInstance(this);
 				screenCache.put(screenType, newScreen);
