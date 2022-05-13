@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bormberman.Bomberman;
+import com.bormberman.audio.AudioType;
 import com.bormberman.screens.ScreenType;
 
 public class MyButton extends TextButton {
@@ -21,6 +22,9 @@ public class MyButton extends TextButton {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 Gdx.graphics.setSystemCursor(SystemCursor.Hand);
+                if (context.getAssetManager().isLoaded(AudioType.SELECT.getFilePath())) {
+                    context.getAudioManager().playAudio(AudioType.SELECT);
+                }
                 clearActions();
                 if (getActions().size < 1) {
                     Action action = Actions.forever(Actions.sequence(Actions.alpha(1, 0.5f), Actions.alpha(0, 0.5f)));
@@ -40,6 +44,9 @@ public class MyButton extends TextButton {
             }
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (context.getAssetManager().isLoaded(AudioType.SELECT.getFilePath())) {
+                    context.getAudioManager().playAudio(AudioType.SELECT);
+                }
                 context.setScreen(screen);
             }
         });

@@ -19,7 +19,9 @@ public class MenuUi extends Table{
         playGame = new MyButton("[orangeGame]"+i18nBundle.format("interface.playGame"),getSkin(), "default");
         playGame.setScreen(context, ScreenType.LOADING);
         options = new MyButton("[orangeGame]"+i18nBundle.format("interface.options"), getSkin()  , "default");
+        options.setScreen(context, ScreenType.LOADING);
         marks = new MyButton("[orangeGame]"+i18nBundle.format("interface.ranking"),  getSkin() , "default");
+        marks.setScreen(context, ScreenType.LOADING);
         title = new Image( getSkin() ,"tittle");
         setBackground("background");
         add(title).expand().fill().center().pad(20,20,20,20).row();

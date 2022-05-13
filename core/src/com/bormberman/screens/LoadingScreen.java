@@ -1,19 +1,17 @@
 package com.bormberman.screens;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
+import com.bormberman.audio.AudioType;
 import com.bormberman.input.GameKeys;
 import com.bormberman.input.InputManager;
 import com.bormberman.ui.LoadingUI;
 
 public class LoadingScreen extends AbstractScreen<LoadingUI> {
-    private final AssetManager assetManager;
 
     public LoadingScreen(Bomberman contextBomberman) {
         super(contextBomberman);
-        this.assetManager = context.getAssetManager();
         assetManager.load("map/stage1_1.tmx", TiledMap.class);
 
     }
@@ -43,11 +41,11 @@ public class LoadingScreen extends AbstractScreen<LoadingUI> {
 
     @Override
     public void dispose() {
-
     }
 
     @Override
     public void keyPressed(InputManager manager, GameKeys key) {
+        audioManager.playAudio(AudioType.SELECT);
         if (assetManager.getProgress() >=1) {
             context.setScreen(ScreenType.GAME);
         }

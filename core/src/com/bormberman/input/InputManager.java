@@ -5,8 +5,9 @@ import com.badlogic.gdx.utils.Array;
 
 public class InputManager implements InputProcessor {
     private GameKeys[] keyMapping;
-    private boolean[]  keystate;
+    private boolean[] keystate;
     private Array<InputListener> listeners;
+
     public InputManager() {
         this.keyMapping = new GameKeys[256];
         for (GameKeys gameKey : GameKeys.values()) {
@@ -17,11 +18,13 @@ public class InputManager implements InputProcessor {
         keystate = new boolean[GameKeys.values().length];
         listeners = new Array<>();
     }
+
     public void addInputListener(InputListener listener) {
         listeners.add(listener);
     }
+
     public void removeInputListener(InputListener listener) {
-        listeners.removeValue(listener,true);
+        listeners.removeValue(listener, true);
     }
 
     @Override
@@ -40,8 +43,9 @@ public class InputManager implements InputProcessor {
         for (InputListener listener : listeners) {
             listener.keyPressed(this, gameKey);
         }
-        
+
     }
+
     @Override
     public boolean keyUp(int keycode) {
         GameKeys gameKey = keyMapping[keycode];
@@ -52,14 +56,16 @@ public class InputManager implements InputProcessor {
         notifyKeyUp(gameKey);
         return false;
     }
+
     public void notifyKeyUp(GameKeys gameKey) {
-        keystate[gameKey.ordinal()] = true;
+        keystate[gameKey.ordinal()] = false;
         for (InputListener listener : listeners) {
             listener.keyUp(this, gameKey);
         }
-        
+
     }
-    public boolean isKeyPress(GameKeys gameKey) {
+
+    public boolean isKeyPressed(GameKeys gameKey) {
         return keystate[gameKey.ordinal()];
     }
 
@@ -92,5 +98,5 @@ public class InputManager implements InputProcessor {
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
-    
+
 }

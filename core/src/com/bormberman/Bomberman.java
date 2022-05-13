@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.bormberman.audio.AudioManager;
 import com.bormberman.input.InputManager;
 import com.bormberman.screens.ScreenType;
 
@@ -59,7 +60,7 @@ public class Bomberman extends Game {
 	private I18NBundle i18nBundle;
 
 	private InputManager inputManager;
-
+	private AudioManager audioManager;
 	@Override
 	public void create() {
 		//set Debug Mode
@@ -75,6 +76,8 @@ public class Bomberman extends Game {
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 		initializeSkin();
 		stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()),spriteBatch);
+		//audio
+		audioManager = new AudioManager(this);
 		//Input creation
 		inputManager = new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
@@ -155,6 +158,9 @@ public class Bomberman extends Game {
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
+	}
+	public AudioManager getAudioManager() {
+		return audioManager;
 	}
 	public InputManager getInputManager() {
 		return inputManager;
