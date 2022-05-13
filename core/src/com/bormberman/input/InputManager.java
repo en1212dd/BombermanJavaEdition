@@ -20,7 +20,7 @@ public class InputManager implements InputProcessor {
     public void addInputListener(InputListener listener) {
         listeners.add(listener);
     }
-    public void remuveInputListener(InputListener listener) {
+    public void removeInputListener(InputListener listener) {
         listeners.removeValue(listener,true);
     }
 

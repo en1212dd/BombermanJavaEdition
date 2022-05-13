@@ -16,6 +16,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
+import com.bormberman.input.GameKeys;
+import com.bormberman.input.InputManager;
 import com.bormberman.map.CollisionArea;
 import com.bormberman.map.Map;
 
@@ -157,6 +159,14 @@ public class GameScreen extends AbstractScreen<Table> {
     @Override
     public void dispose() {
         mapRenderer.dispose();
+    }
+    @Override
+    public void keyPressed(InputManager manager, GameKeys key) {
+        
+    }
+    @Override
+    public void keyUp(InputManager manager, GameKeys key) {
+        
     }
 
 }

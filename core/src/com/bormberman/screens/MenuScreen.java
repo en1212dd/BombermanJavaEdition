@@ -1,6 +1,8 @@
 package com.bormberman.screens;
 
 import com.bormberman.Bomberman;
+import com.bormberman.input.GameKeys;
+import com.bormberman.input.InputManager;
 import com.bormberman.ui.MenuUi;
 
 public class MenuScreen extends AbstractScreen<MenuUi> {
@@ -29,6 +31,16 @@ public class MenuScreen extends AbstractScreen<MenuUi> {
     @Override
     protected MenuUi getScreenUI(Bomberman context) {
         return new MenuUi(context);
+    }
+
+    @Override
+    public void keyPressed(InputManager manager, GameKeys key) {
+        
+    }
+
+    @Override
+    public void keyUp(InputManager manager, GameKeys key) {
+        
     }
     
 }

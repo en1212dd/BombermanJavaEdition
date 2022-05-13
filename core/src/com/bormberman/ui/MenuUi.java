@@ -1,7 +1,6 @@
 package com.bormberman.ui;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -28,6 +27,6 @@ public class MenuUi extends Table{
         add(options).width(350).height(55).center().pad(10,10,10,10).row();
         add(marks).width(450).height(55).center().pad(10,10,10,10).row();
         context.getStage().addActor(this);
-        Gdx.input.setInputProcessor(context.getStage());
+        //Gdx.input.setInputProcessor(context.getStage());
     }
 }

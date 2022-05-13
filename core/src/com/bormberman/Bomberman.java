@@ -5,6 +5,7 @@ import java.util.EnumMap;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
@@ -31,6 +32,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.bormberman.input.InputManager;
 import com.bormberman.screens.ScreenType;
 
 
@@ -56,22 +58,27 @@ public class Bomberman extends Game {
 	private Stage stage;
 	private I18NBundle i18nBundle;
 
+	private InputManager inputManager;
+
 	@Override
 	public void create() {
 		//set Debug Mode
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		spriteBatch = new SpriteBatch();
 		accumulator =0;
-
+		//Box2d stuff
 		Box2D.init();
 		box2dDebugRenderer = new Box2DDebugRenderer();
 		world= new World(new Vector2(0,0), true);
-
+		//Initialize AssetManager
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 		initializeSkin();
 		stage = new Stage(new FitViewport(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()),spriteBatch);
-
+		//Input creation
+		inputManager = new InputManager();
+		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
+		//Set first Screen
 		orthographicCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(17, 13, orthographicCamera);
 		screenCache = new EnumMap<>(ScreenType.class);
@@ -148,6 +155,9 @@ public class Bomberman extends Game {
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
+	}
+	public InputManager getInputManager() {
+		return inputManager;
 	}
 	public I18NBundle getI18nBundle() {
 		return i18nBundle;
