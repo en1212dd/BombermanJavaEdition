@@ -1,6 +1,5 @@
 package com.bormberman.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -25,7 +24,7 @@ public class GameUi extends Table {
 
         i18nBundle = context.getI18nBundle();
         setDebug(true,true);
-        setPosition(64, Gdx.graphics.getHeight()-heightOftheHud);
+        setPosition(64, 390);
         background("backgroundHud");
         setWidth(widthOfTheHud);
         setHeight(heightOftheHud);

@@ -39,7 +39,6 @@ public class GameScreen extends AbstractScreen<Table> {
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, context.getSpriteBatch());
         this.assetManager = context.getAssetManager();
         this.orthographicCamera = context.getOrthographicCamera();
-
         final TiledMap tiledMap = assetManager.get("map/stage1_1.tmx", TiledMap.class);
         mapRenderer.setMap(tiledMap);
         map = new Map(tiledMap);
