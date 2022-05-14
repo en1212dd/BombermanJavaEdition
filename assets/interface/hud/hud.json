@@ -35,6 +35,10 @@
         },
         "notBackgroundBig":{
             "font": "font_26"
+        },
+        "hudBackground":{
+            "font":"font_12",
+            "up":"backgroundHudInformation"
         }
     },
     "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {

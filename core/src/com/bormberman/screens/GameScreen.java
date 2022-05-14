@@ -15,6 +15,7 @@ import com.bormberman.input.GameKeys;
 import com.bormberman.input.InputManager;
 import com.bormberman.map.CollisionArea;
 import com.bormberman.map.Map;
+import com.bormberman.ui.GameUi;
 
 import static com.bormberman.Bomberman.UNIT_SCALE;
 
@@ -80,7 +81,7 @@ public class GameScreen extends AbstractScreen<Table> {
 
     @Override
     protected Table getScreenUI(Bomberman context) {
-        return new Table();
+        return new GameUi(context);
     }
 
     @Override

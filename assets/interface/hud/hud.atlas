@@ -1,75 +1,103 @@
 
 hud.png
-size: 1024, 1024
+size: 2048, 512
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 background
   rotate: false
-  xy: 0, 302
+  xy: 0, 57
   size: 948, 453
   orig: 948, 453
   offset: 0, 0
   index: -1
+backgroundHud
+  rotate: false
+  xy: 0, 25
+  size: 256, 32
+  orig: 256, 32
+  offset: 0, 0
+  index: -1
+backgroundHudInformation
+  rotate: false
+  xy: 996, 226
+  size: 8, 14
+  orig: 8, 14
+  offset: 0, 0
+  index: -1
 buttomNormal
   rotate: false
-  xy: 23, 7
+  xy: 971, 215
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
 buttomNormalPress
   rotate: false
-  xy: 438, 277
+  xy: 0, 0
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
 corner
   rotate: false
-  xy: 971, 730
+  xy: 256, 32
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
 frHorizontal
   rotate: false
-  xy: 438, 252
+  xy: 1409, 485
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
 frVertical
   rotate: false
-  xy: 463, 277
+  xy: 25, 0
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
 knob
   rotate: false
-  xy: 948, 692
+  xy: 1386, 447
   size: 3, 31
   orig: 3, 31
   offset: 0, 0
   index: -1
 knobAfter
   rotate: false
-  xy: 948, 723
+  xy: 948, 208
   size: 23, 32
   orig: 23, 32
   offset: 0, 0
   index: -1
 knobBefore 
   rotate: false
-  xy: 0, 0
+  xy: 1386, 478
   size: 23, 32
   orig: 23, 32
   offset: 0, 0
   index: -1
+playerIcon
+  rotate: false
+  xy: 281, 43
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+timerIcon
+  rotate: false
+  xy: 948, 186
+  size: 15, 22
+  orig: 15, 22
+  offset: 0, 0
+  index: -1
 tittle
   rotate: false
-  xy: 0, 32
+  xy: 948, 240
   size: 438, 270
   orig: 438, 270
   offset: 0, 0

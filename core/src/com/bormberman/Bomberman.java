@@ -88,10 +88,24 @@ public class Bomberman extends Game {
 		escEngine = new ESCEngine(this);
 		//Set first Screen
 		orthographicCamera = new OrthographicCamera();
-		screenViewport = new FitViewport(17, 13, orthographicCamera);
+		screenViewport = new FitViewport(17, 16, orthographicCamera);
 		screenCache = new EnumMap<>(ScreenType.class);
 		setScreen(ScreenType.MENU);
 
+	}
+	@Override
+	public void render() {
+		super.render();
+		escEngine.update(Gdx.graphics.getDeltaTime());
+		accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
+		while (accumulator>=FIXED_TIME_STEP) {
+			world.step(FIXED_TIME_STEP, 6, 2);
+			accumulator -= FIXED_TIME_STEP;
+		}
+		//final float alpha = accumulator/FIXED_TIME_STEP;
+		stage.getViewport().apply();
+		stage.act();
+		stage.draw();
 	}
 	public void setScreen(final ScreenType screenType) {
 		final Screen screen = screenCache.get(screenType);
@@ -109,20 +123,6 @@ public class Bomberman extends Game {
 			Gdx.app.debug(TAG, "Cambiando a la scenea llamada: " + screenType);
 			setScreen(screen);
 		}
-	}
-	@Override
-	public void render() {
-		super.render();
-		escEngine.update(Gdx.graphics.getDeltaTime());
-		accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
-		while (accumulator>=FIXED_TIME_STEP) {
-			world.step(FIXED_TIME_STEP, 6, 2);
-			accumulator -= FIXED_TIME_STEP;
-		}
-		//final float alpha = accumulator/FIXED_TIME_STEP;
-		stage.getViewport().apply();
-		stage.act();
-		stage.draw();
 	}
 	private void initializeSkin() {
 		//setup markut color
