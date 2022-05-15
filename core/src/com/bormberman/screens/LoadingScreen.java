@@ -6,13 +6,15 @@ import com.bormberman.Bomberman;
 import com.bormberman.audio.AudioType;
 import com.bormberman.input.GameKeys;
 import com.bormberman.input.InputManager;
+import com.bormberman.map.MapType;
 import com.bormberman.ui.LoadingUI;
 
 public class LoadingScreen extends AbstractScreen<LoadingUI> {
 
     public LoadingScreen(Bomberman contextBomberman) {
         super(contextBomberman);
-        assetManager.load("map/stage1_1.tmx", TiledMap.class);
+        assetManager.load(MapType.MAP_1.getFilePath(), TiledMap.class);
+        assetManager.load(MapType.MAP_2.getFilePath(), TiledMap.class);
 
     }
 

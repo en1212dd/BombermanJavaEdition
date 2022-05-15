@@ -78,4 +78,7 @@ public class Map {
     public Array<CollisionArea> getCollisionArea() {
         return collisionArea;
     }
+    public TiledMap getTiledMap() {
+        return tiledMap;
+    }
 }

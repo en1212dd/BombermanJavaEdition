@@ -21,9 +21,12 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -35,20 +38,28 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bormberman.audio.AudioManager;
 import com.bormberman.ecs.ESCEngine;
 import com.bormberman.input.InputManager;
+import com.bormberman.map.MapManager;
 import com.bormberman.screens.ScreenType;
 
 
 
 public class Bomberman extends Game {
+	//static constants
     public static final float UNIT_SCALE=1/16f;
 	private static final String TAG = Bomberman.class.getSimpleName();
+
+	private static final float FIXED_TIME_STEP = 1/60f;
+	public static final BodyDef BODY_DEF = new BodyDef();
+	public static final FixtureDef FIXTURE_DEF = new FixtureDef();
+    public static final short BIT_PLAYER = 1 << 0;
+    public static final short BIT_GROUND = 1 << 1;
+
 	private EnumMap<ScreenType, Screen> screenCache;
 	private FitViewport screenViewport;
 
 	private World world;
 	private Box2DDebugRenderer box2dDebugRenderer;
 
-	private static final float FIXED_TIME_STEP = 1/60f;
 	private float accumulator;
 
 	private AssetManager assetManager;
@@ -62,6 +73,7 @@ public class Bomberman extends Game {
 
 	private InputManager inputManager;
 	private AudioManager audioManager;
+	private MapManager mapManager;
 
 	private ESCEngine escEngine;
 	@Override
@@ -84,6 +96,8 @@ public class Bomberman extends Game {
 		//Input creation
 		inputManager = new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
+		//map manager
+		mapManager = new MapManager(this);
 		//ECS
 		escEngine = new ESCEngine(this);
 		//Set first Screen
@@ -124,6 +138,20 @@ public class Bomberman extends Game {
 			setScreen(screen);
 		}
 	}
+	    public static void resetBodieAndFixture() {
+        BODY_DEF.position.set(0, 0);
+        BODY_DEF.gravityScale = 1;
+        BODY_DEF.type = BodyType.StaticBody;
+        BODY_DEF.fixedRotation = false;
+
+        FIXTURE_DEF.density = 0;
+        FIXTURE_DEF.isSensor = false;
+        FIXTURE_DEF.restitution = 0;
+        FIXTURE_DEF.friction = 0.2f;
+        FIXTURE_DEF.filter.categoryBits = 0x0001;
+        FIXTURE_DEF.filter.maskBits = -1;
+        FIXTURE_DEF.shape = null;
+    }
 	private void initializeSkin() {
 		//setup markut color
 		Colors.put("orange", Color.ORANGE);
@@ -164,6 +192,9 @@ public class Bomberman extends Game {
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
+	}
+	public MapManager getMapManager() {
+		return mapManager;
 	}
 	public ESCEngine getEscEngine() {
 		return escEngine;

@@ -16,11 +16,6 @@
    H4sIAAAAAAAACmNgoC1wokAPsTStAD3dgc8MfPY6YREn1V5GKGZAokl1BzaaFIBuPyMec6jpDnqnKRAAAFCT3Ft0AwAA
   </data>
  </layer>
- <objectgroup id="6" name="positionPlayer" visible="0">
-  <object id="63" x="39.4317" y="25.0158">
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup color="#aa0000" id="7" name="collision">
   <object id="65" x="47.9117" y="33.0718" width="15.4759" height="14.4159"/>
   <object id="66" x="80.2621" y="33.542" width="15.4759" height="14.4159"/>
