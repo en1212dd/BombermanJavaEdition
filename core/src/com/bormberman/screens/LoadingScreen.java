@@ -1,5 +1,6 @@
 package com.bormberman.screens;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
@@ -15,7 +16,7 @@ public class LoadingScreen extends AbstractScreen<LoadingUI> {
         super(contextBomberman);
         assetManager.load(MapType.MAP_1.getFilePath(), TiledMap.class);
         assetManager.load(MapType.MAP_2.getFilePath(), TiledMap.class);
-
+        assetManager.load("map/tilesetStage_1_1.atlas",TextureAtlas.class);
     }
 
     @Override

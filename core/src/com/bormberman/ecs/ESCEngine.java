@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.bormberman.Bomberman;
+import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
 import com.bormberman.ecs.components.PlayerComponent;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
@@ -45,6 +46,7 @@ public class ESCEngine extends PooledEngine{
         b2dComponent.body.setUserData("PLAYER");
         b2dComponent.width = width;
         b2dComponent.heigth = heigth;
+        b2dComponent.renderPosition.set(b2dComponent.body.getPosition());
 
         FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;
         FIXTURE_DEF.filter.maskBits = BIT_GROUND;
@@ -55,6 +57,10 @@ public class ESCEngine extends PooledEngine{
         pShape.dispose();
 
         player.add(b2dComponent);
+        //animation
+        final AnimationComponent animationComponent= this.createComponent(AnimationComponent.class);
+        player.add(animationComponent);
+
         this.addEntity(player);
     }
 

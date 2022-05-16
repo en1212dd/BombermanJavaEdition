@@ -2,7 +2,6 @@ package com.bormberman.screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -17,7 +16,6 @@ public abstract class AbstractScreen<T extends Table> implements Screen , InputL
     protected final AssetManager assetManager;
     protected final FitViewport viewport;
     protected final World world;
-    protected final Box2DDebugRenderer box2dDebugRenderer;
     protected final Stage stage;
     protected final T screenUI;
     protected final InputManager inputManager;
@@ -28,7 +26,6 @@ public abstract class AbstractScreen<T extends Table> implements Screen , InputL
         this.assetManager = context.getAssetManager();
         this.viewport = context.getScreenViewport();
         this.world = context.getWorld();
-        this.box2dDebugRenderer = context.getBox2dDebugRenderer();
         this.stage = context.getStage();
         this.screenUI = getScreenUI(context);
         this.inputManager = context.getInputManager();

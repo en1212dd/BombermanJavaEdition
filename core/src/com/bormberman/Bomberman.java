@@ -23,7 +23,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -40,6 +39,7 @@ import com.bormberman.ecs.ESCEngine;
 import com.bormberman.input.InputManager;
 import com.bormberman.map.MapManager;
 import com.bormberman.screens.ScreenType;
+import com.bormberman.ui.GameRederer;
 
 
 
@@ -58,7 +58,6 @@ public class Bomberman extends Game {
 	private FitViewport screenViewport;
 
 	private World world;
-	private Box2DDebugRenderer box2dDebugRenderer;
 
 	private float accumulator;
 
@@ -76,6 +75,8 @@ public class Bomberman extends Game {
 	private MapManager mapManager;
 
 	private ESCEngine escEngine;
+
+	private GameRederer gameRederer;
 	@Override
 	public void create() {
 		//set Debug Mode
@@ -84,7 +85,6 @@ public class Bomberman extends Game {
 		accumulator =0;
 		//Box2d stuff
 		Box2D.init();
-		box2dDebugRenderer = new Box2DDebugRenderer();
 		world= new World(new Vector2(0,0), true);
 		//Initialize AssetManager
 		assetManager = new AssetManager();
@@ -105,20 +105,23 @@ public class Bomberman extends Game {
 		screenViewport = new FitViewport(17, 16, orthographicCamera);
 		screenCache = new EnumMap<>(ScreenType.class);
 		setScreen(ScreenType.MENU);
+		//Game Render
+		gameRederer = new GameRederer(this);
 
 	}
 	@Override
 	public void render() {
 		super.render();
-		escEngine.update(Gdx.graphics.getDeltaTime());
-		accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
+		final float deltaTime = Math.min(0.25f, Gdx.graphics.getDeltaTime());
+		escEngine.update(deltaTime);
+		accumulator += deltaTime;
 		while (accumulator>=FIXED_TIME_STEP) {
 			world.step(FIXED_TIME_STEP, 6, 2);
 			accumulator -= FIXED_TIME_STEP;
 		}
-		//final float alpha = accumulator/FIXED_TIME_STEP;
+		gameRederer.render(accumulator/FIXED_TIME_STEP);
 		stage.getViewport().apply();
-		stage.act();
+		stage.act(deltaTime);
 		stage.draw();
 	}
 	public void setScreen(final ScreenType screenType) {
@@ -186,9 +189,9 @@ public class Bomberman extends Game {
 	}
 	@Override
 	public void dispose() {
+		gameRederer.dispose();
 		spriteBatch.dispose();
 		super.dispose();
-		box2dDebugRenderer.dispose();
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
@@ -216,9 +219,6 @@ public class Bomberman extends Game {
 	}
 	public AssetManager getAssetManager() {
 		return assetManager;
-	}
-	public Box2DDebugRenderer getBox2dDebugRenderer() {
-		return box2dDebugRenderer;
 	}
 	public World getWorld() {
 		return world;

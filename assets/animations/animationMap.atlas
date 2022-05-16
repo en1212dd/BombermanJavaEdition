@@ -1,0 +1,13 @@
+
+animationMap.png
+size: 128, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+bombermanSprite
+  rotate: false
+  xy: 2, 2
+  size: 96, 144
+  orig: 96, 144
+  offset: 0, 0
+  index: -1
