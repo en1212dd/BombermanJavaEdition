@@ -2,7 +2,6 @@ package com.bormberman.screens;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.bormberman.Bomberman;
 import com.bormberman.audio.AudioType;
 import com.bormberman.input.GameKeys;
@@ -21,8 +20,6 @@ public class LoadingScreen extends AbstractScreen<LoadingUI> {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0, 1);
-
         assetManager.update();
         screenUI.setProgress(assetManager.getProgress());
     }

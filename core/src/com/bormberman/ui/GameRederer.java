@@ -51,7 +51,6 @@ public class GameRederer implements Disposable, MapListener{
     private final Box2DDebugRenderer box2dDebugRenderer;
     private final World world;
 
-    //private Sprite dumySprite; 
     public GameRederer(Bomberman context){
         assetManager = context.getAssetManager();
         viewport = context.getScreenViewport();
@@ -67,7 +66,7 @@ public class GameRederer implements Disposable, MapListener{
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
 
         profiler = new GLProfiler(Gdx.graphics);
-        profiler.enable();
+        profiler.disable();
         if (profiler.isEnabled()) {
             box2dDebugRenderer = new Box2DDebugRenderer();
             world = context.getWorld();
@@ -81,10 +80,11 @@ public class GameRederer implements Disposable, MapListener{
         ScreenUtils.clear(0, 0, 0, 1);
 
         viewport.apply(true);
+
+        mapRenderer.setView(gameCamera);
         spriteBatch.begin();
         if (mapRenderer.getMap() != null) {
             AnimatedTiledMapTile.updateAnimationBaseTime();
-            mapRenderer.setView(gameCamera);
             for (TiledMapTileLayer layer : tileMapLayers) {
                 mapRenderer.renderTileLayer(layer);
             }
@@ -118,17 +118,19 @@ public class GameRederer implements Disposable, MapListener{
             Gdx.app.debug(TAG, "Creando una nueva animacion de tipo: "+aniType);   
             final AtlasRegion region = assetManager.get(aniType.getAtlasPath(),TextureAtlas.class).findRegion(aniType.getAtalsKey());
             final TextureRegion[][]textureRegions= region.split(16, 24);
-            animation = new Animation<Sprite>(aniType.getFrameTime(),getKeyFrame(textureRegions[aniType.getRowIndex()]),Animation.PlayMode.LOOP);
+            animation = new Animation<Sprite>(aniType.getFrameTime(), getKeyFrame(textureRegions[aniType.getRowIndex()]));
+            animation.setPlayMode(Animation.PlayMode.LOOP);
             animationCache.put(aniType, animation);
         }
         return animation;
     }
-    private Array<? extends Sprite> getKeyFrame(TextureRegion[] textureRegions) {
-        final Array<Sprite> keyFrame = new Array<>();
+    private Sprite[] getKeyFrame(TextureRegion[] textureRegions) {
+        final Sprite[] keyFrame = new Sprite[textureRegions.length];
+        int i = 0;
         for (TextureRegion region : textureRegions) {
             final Sprite sprite = new Sprite(region);
             sprite.setOriginCenter();
-            keyFrame.add(sprite);
+            keyFrame[i++]=sprite;
         }
         return keyFrame;
     }
