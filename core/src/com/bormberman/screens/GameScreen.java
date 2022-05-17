@@ -23,7 +23,7 @@ public class GameScreen extends AbstractScreen<GameUi> implements MapListener{
         mapManager.addMapListener(this);
         mapManager.setMap(MapType.MAP_1);
 
-        context.getEscEngine().createPlayer(mapManager.getCurrentMap().parcePlayerStartLayer(), 0.45f, 0.45f);
+        context.getEscEngine().createPlayer(mapManager.getCurrentMap().parcePlayerStartLayer(), 0.47f, 0.47f);
     };
 
     @Override

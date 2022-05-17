@@ -1,13 +1,20 @@
 
 animationMap.png
-size: 128, 256
+size: 256, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 bombermanSprite
   rotate: false
   xy: 2, 2
-  size: 96, 144
-  orig: 96, 144
+  size: 48, 120
+  orig: 48, 120
+  offset: 0, 0
+  index: -1
+bombermanSpritesDie
+  rotate: false
+  xy: 52, 98
+  size: 96, 24
+  orig: 96, 24
   offset: 0, 0
   index: -1

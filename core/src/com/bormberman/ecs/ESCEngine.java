@@ -12,6 +12,7 @@ import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
 import com.bormberman.ecs.components.PlayerComponent;
 import com.bormberman.ecs.systems.AnimationSystem;
+import com.bormberman.ecs.systems.PlayerAnimationSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
 import com.bormberman.ui.AnimationType;
 
@@ -19,6 +20,7 @@ import static com.bormberman.Bomberman.BIT_GROUND;
 import static com.bormberman.Bomberman.BIT_PLAYER;
 import static com.bormberman.Bomberman.BODY_DEF;
 import static com.bormberman.Bomberman.FIXTURE_DEF;
+import static com.bormberman.Bomberman.UNIT_SCALE;
 import static com.bormberman.Bomberman.resetBodieAndFixture;
 
 public class ESCEngine extends PooledEngine{
@@ -32,6 +34,7 @@ public class ESCEngine extends PooledEngine{
 
         this.addSystem(new PlayerMovementSystem(context));
         this.addSystem(new AnimationSystem(context));
+        this.addSystem(new PlayerAnimationSystem(context));
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
         final Entity player = this.createEntity();
@@ -54,7 +57,7 @@ public class ESCEngine extends PooledEngine{
         FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;
         FIXTURE_DEF.filter.maskBits = BIT_GROUND;
         final PolygonShape pShape = new PolygonShape();
-        pShape.setAsBox(width,heigth,b2dComponent.body.getLocalCenter(), 0);
+        pShape.setAsBox(width ,heigth ,b2dComponent.body.getLocalCenter(), 0);
         FIXTURE_DEF.shape = pShape;
         b2dComponent.body.createFixture(FIXTURE_DEF);
         pShape.dispose();
@@ -63,6 +66,8 @@ public class ESCEngine extends PooledEngine{
         //animation
         final AnimationComponent animationComponent= this.createComponent(AnimationComponent.class);
         animationComponent.aniType = AnimationType.BOMBERMAN_DOWN;
+        animationComponent.width = 16 *UNIT_SCALE;
+        animationComponent.heigth = 16 *UNIT_SCALE;
         player.add(animationComponent);
 
         this.addEntity(player);

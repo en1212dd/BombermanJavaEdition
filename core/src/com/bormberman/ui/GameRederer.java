@@ -67,7 +67,7 @@ public class GameRederer implements Disposable, MapListener{
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
 
         profiler = new GLProfiler(Gdx.graphics);
-        profiler.disable();
+        profiler.enable();
         if (profiler.isEnabled()) {
             box2dDebugRenderer = new Box2DDebugRenderer();
             world = context.getWorld();
@@ -108,7 +108,7 @@ public class GameRederer implements Disposable, MapListener{
             final Animation<Sprite> animation = getAnimation(aComponent.aniType);
             final Sprite frame = animation.getKeyFrame(aComponent.aniTime);
             b2dComponent.renderPosition.lerp(b2dComponent.body.getPosition(), delta);
-            frame.setBounds(b2dComponent.renderPosition.x-b2dComponent.width,b2dComponent.renderPosition.y-b2dComponent.heigth, b2dComponent.width, b2dComponent.heigth);
+            frame.setBounds(b2dComponent.renderPosition.x-b2dComponent.width,b2dComponent.renderPosition.y-b2dComponent.heigth, aComponent.width, aComponent.heigth);
             frame.draw(spriteBatch);
         }
     }
@@ -143,10 +143,6 @@ public class GameRederer implements Disposable, MapListener{
     public void mapChange(Map map) {
         mapRenderer.setMap(map.getTiledMap());
         map.getTiledMap().getLayers().getByType(TiledMapTileLayer.class,tileMapLayers);
- //       if (dumySprite == null) {
- //           dumySprite = assetManager.get("map/tilesetStage_1_1.atlas",TextureAtlas.class).createSprite("normalBom");
- //           dumySprite.setOriginCenter();
- //       }
     }
     
 }

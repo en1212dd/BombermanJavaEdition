@@ -1,12 +1,12 @@
 package com.bormberman.ui;
 
 public enum AnimationType {
-    BOMBERMAN_UP("animations/animationMap.atlas","bombermanSprite",0.05f,0),
-    BOMBERMAN_LEFT("animations/animationMap.atlas","bombermanSprite",0.05f,1),
-    BOMBERMAN_RIGHT("animations/animationMap.atlas","bombermanSprite",0.05f,2),
-    BOMBERMAN_DOWN("animations/animationMap.atlas","bombermanSprite",0.5f,3),
-    BOMBERMAN_PUNCH("animations/animationMap.atlas","bombermanSprite",0.05f,4),
-    BOMBERMAN_DIE("animations/animationMap.atlas","bombermanSprite",0.05f,5);
+    BOMBERMAN_UP("animations/animationMap.atlas","bombermanSprite",0.15f,0),
+    BOMBERMAN_LEFT("animations/animationMap.atlas","bombermanSprite",0.15f,1),
+    BOMBERMAN_RIGHT("animations/animationMap.atlas","bombermanSprite",0.15f,2),
+    BOMBERMAN_DOWN("animations/animationMap.atlas","bombermanSprite",0.15f,3),
+    BOMBERMAN_PUNCH("animations/animationMap.atlas","bombermanSprite",0.15f,4),
+    BOMBERMAN_DIE("animations/animationMap.atlas","bombermanSprite",0.15f,5);
 
     private String atlasPath,atalsKey;
     private float frameTime;

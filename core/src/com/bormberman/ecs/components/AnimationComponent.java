@@ -7,10 +7,13 @@ import com.bormberman.ui.AnimationType;
 public class AnimationComponent implements Component,Poolable{
     public AnimationType aniType;
     public float aniTime;
+    public float width;
+    public float heigth;
     @Override
     public void reset() {
         aniType = null;
         aniTime =0;
+        width = heigth = 0;
     }
     
 }
