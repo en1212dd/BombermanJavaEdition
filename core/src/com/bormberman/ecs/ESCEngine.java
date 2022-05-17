@@ -11,7 +11,9 @@ import com.bormberman.Bomberman;
 import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
 import com.bormberman.ecs.components.PlayerComponent;
+import com.bormberman.ecs.systems.AnimationSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
+import com.bormberman.ui.AnimationType;
 
 import static com.bormberman.Bomberman.BIT_GROUND;
 import static com.bormberman.Bomberman.BIT_PLAYER;
@@ -22,13 +24,14 @@ import static com.bormberman.Bomberman.resetBodieAndFixture;
 public class ESCEngine extends PooledEngine{
     public static final ComponentMapper<PlayerComponent> P_COMPONENT_MAPPER = ComponentMapper.getFor(PlayerComponent.class);
     public static final ComponentMapper<B2DComponent> B2_COMPONENT_MAPPER = ComponentMapper.getFor(B2DComponent.class);
-
+    public static final ComponentMapper<AnimationComponent> A_COMPONENT_MAPPER = ComponentMapper.getFor(AnimationComponent.class);
     private final World world;
     public ESCEngine(Bomberman context) {
         super();
         world = context.getWorld();
 
         this.addSystem(new PlayerMovementSystem(context));
+        this.addSystem(new AnimationSystem(context));
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
         final Entity player = this.createEntity();
@@ -59,6 +62,7 @@ public class ESCEngine extends PooledEngine{
         player.add(b2dComponent);
         //animation
         final AnimationComponent animationComponent= this.createComponent(AnimationComponent.class);
+        animationComponent.aniType = AnimationType.BOMBERMAN_DOWN;
         player.add(animationComponent);
 
         this.addEntity(player);

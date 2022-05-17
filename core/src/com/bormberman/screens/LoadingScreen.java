@@ -16,7 +16,7 @@ public class LoadingScreen extends AbstractScreen<LoadingUI> {
         super(contextBomberman);
         assetManager.load(MapType.MAP_1.getFilePath(), TiledMap.class);
         assetManager.load(MapType.MAP_2.getFilePath(), TiledMap.class);
-        assetManager.load("map/tilesetStage_1_1.atlas",TextureAtlas.class);
+        assetManager.load("animations/animationMap.atlas",TextureAtlas.class);
     }
 
     @Override
