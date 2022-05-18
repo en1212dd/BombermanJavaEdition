@@ -10,8 +10,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.bormberman.Bomberman;
 import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
+import com.bormberman.ecs.components.EnemyComponent;
 import com.bormberman.ecs.components.PlayerComponent;
+import com.bormberman.ecs.systems.AnimationMoveEnemySystem;
 import com.bormberman.ecs.systems.AnimationSystem;
+import com.bormberman.ecs.systems.EnemyMovementSystem;
 import com.bormberman.ecs.systems.PlayerAnimationSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
 import com.bormberman.ui.AnimationType;
@@ -27,6 +30,7 @@ public class ESCEngine extends PooledEngine{
     public static final ComponentMapper<PlayerComponent> P_COMPONENT_MAPPER = ComponentMapper.getFor(PlayerComponent.class);
     public static final ComponentMapper<B2DComponent> B2_COMPONENT_MAPPER = ComponentMapper.getFor(B2DComponent.class);
     public static final ComponentMapper<AnimationComponent> A_COMPONENT_MAPPER = ComponentMapper.getFor(AnimationComponent.class);
+    public static final ComponentMapper<EnemyComponent> E_COMPONENT_MAPPER = ComponentMapper.getFor(EnemyComponent.class);
     private final World world;
     public ESCEngine(Bomberman context) {
         super();
@@ -35,6 +39,8 @@ public class ESCEngine extends PooledEngine{
         this.addSystem(new PlayerMovementSystem(context));
         this.addSystem(new AnimationSystem(context));
         this.addSystem(new PlayerAnimationSystem(context));
+        this.addSystem(new EnemyMovementSystem(context));
+        this.addSystem(new AnimationMoveEnemySystem(context));
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
         final Entity player = this.createEntity();
@@ -71,6 +77,44 @@ public class ESCEngine extends PooledEngine{
         player.add(animationComponent);
 
         this.addEntity(player);
+    }
+    public void createEnemy(final Vector2 position, final float width, final float heigth,final int lives, final Vector2 velocity) {
+        final Entity enemy = this.createEntity();
+        // add Components
+        final EnemyComponent enemyComponent = this.createComponent(EnemyComponent.class);
+        enemyComponent.lives = lives;
+        enemyComponent.velocity.set(velocity);
+        enemy.add(enemyComponent);
+        //b2dComponent
+        resetBodieAndFixture();
+        final B2DComponent b2dComponent = this.createComponent(B2DComponent.class);
+        BODY_DEF.position.set(position.x,position.y);
+        BODY_DEF.fixedRotation = true;
+        BODY_DEF.type = BodyType.DynamicBody;
+        b2dComponent.body = world.createBody(BODY_DEF);
+        b2dComponent.body.setUserData("ENEMY");
+        b2dComponent.width = width;
+        b2dComponent.heigth = heigth;
+        b2dComponent.renderPosition.set(b2dComponent.body.getPosition());
+
+        FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;
+        FIXTURE_DEF.filter.maskBits = BIT_GROUND;
+        final PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(width ,heigth ,b2dComponent.body.getLocalCenter(), 0);
+        FIXTURE_DEF.shape = pShape;
+        b2dComponent.body.createFixture(FIXTURE_DEF);
+        pShape.dispose();
+
+        enemy.add(b2dComponent);
+        //animation
+        final AnimationComponent animationComponent= this.createComponent(AnimationComponent.class);
+        animationComponent.aniType = AnimationType.ENEMY_DOWN;
+        animationComponent.width = 16 *UNIT_SCALE;
+        animationComponent.heigth = 16 *UNIT_SCALE;
+
+        enemy.add(animationComponent);
+
+        this.addEntity(enemy);
     }
 
 

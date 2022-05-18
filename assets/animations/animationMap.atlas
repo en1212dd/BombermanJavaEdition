@@ -13,8 +13,29 @@ bombermanSprite
   index: -1
 bombermanSpritesDie
   rotate: false
-  xy: 52, 98
+  xy: 118, 80
   size: 96, 24
   orig: 96, 24
+  offset: 0, 0
+  index: -1
+enemyDie
+  rotate: false
+  xy: 118, 106
+  size: 112, 16
+  orig: 112, 16
+  offset: 0, 0
+  index: -1
+firsEnemy
+  rotate: false
+  xy: 52, 26
+  size: 64, 96
+  orig: 64, 96
+  offset: 0, 0
+  index: -1
+speedObjet
+  rotate: false
+  xy: 52, 8
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: -1

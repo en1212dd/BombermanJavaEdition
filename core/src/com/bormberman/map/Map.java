@@ -74,6 +74,21 @@ public class Map {
         }
         return position;
     }
+    
+    public Array<Vector2> parceEnemysPositions() {
+        MapLayer enemyLayer = tiledMap.getLayers().get("enemysPositions");
+        if (enemyLayer == null) {
+            Gdx.app.debug(TAG, "No se ha encontrado la posicion de los enenmigos");
+        }
+        Array<Vector2> positions =  new Array<>();
+        MapObjects mapObjects = enemyLayer.getObjects();
+        for (MapObject mapObject : mapObjects) {
+            RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
+            Rectangle rectanglePosition = rectangleMapObject.getRectangle();
+            positions.add(new Vector2(rectanglePosition.x * UNIT_SCALE, rectanglePosition.y * UNIT_SCALE));
+        }
+        return positions;
+    }
 
     public Array<CollisionArea> getCollisionArea() {
         return collisionArea;

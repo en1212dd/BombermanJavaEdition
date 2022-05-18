@@ -4,12 +4,14 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class PlayerComponent implements Component,Poolable {
-    public int numberOfBooms;
-    public Vector2 speed = new Vector2();
+public class EnemyComponent implements Component, Poolable{
+    public int lives;
+    public Vector2 velocity = new Vector2();
+
     @Override
     public void reset() {
-       numberOfBooms = 2;
-       speed.set(0, 0);
+        lives = 0;
+        velocity.set(0, 0);
     }
+    
 }
