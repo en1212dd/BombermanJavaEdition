@@ -96,10 +96,10 @@ public class Bomberman extends Game {
 		//Input creation
 		inputManager = new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
-		//map manager
-		mapManager = new MapManager(this);
 		//ECS
 		escEngine = new ESCEngine(this);
+		//map manager
+		mapManager = new MapManager(this);
 		//Set first Screen
 		orthographicCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(17, 16, orthographicCamera);

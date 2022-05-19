@@ -2,6 +2,7 @@ package com.bormberman.map;
 
 import java.util.EnumMap;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.bormberman.Bomberman;
+import com.bormberman.ecs.ESCEngine;
 
 import static com.bormberman.Bomberman.BODY_DEF;
 import static com.bormberman.Bomberman.FIXTURE_DEF;
@@ -23,20 +25,24 @@ public class MapManager {
     private final Array<Body> bodies;
 
     private final AssetManager assetManager;
+    private final ESCEngine engine;
 
     private MapType currentMapType;
     private Map currentMap;
     private final EnumMap<MapType, Map> mapCache; 
     private final Array<MapListener> listeners;
+    private Array<Entity> gameObjectsToRemove;
 
     public MapManager(Bomberman context){
         currentMap=null;
         currentMapType = null;
         world = context.getWorld();
         assetManager = context.getAssetManager();
+        engine = context.getEscEngine();
         bodies = new Array<>();
         mapCache = new EnumMap<>(MapType.class);
         listeners = new Array<>();
+        gameObjectsToRemove = new Array<>();
     }
     public void addMapListener(MapListener listener) {
         listeners.add(listener);
@@ -48,6 +54,7 @@ public class MapManager {
         if (currentMap!= null) {
             world.getBodies(bodies);
             destroyCollisionAreas();
+            destroyGameObjects();
         }
 
         Gdx.app.debug(TAG, "Cambiando al mapa: "+type);
@@ -57,16 +64,33 @@ public class MapManager {
             final TiledMap tiledMap = assetManager.get(type.getFilePath(),TiledMap.class);
             currentMap = new Map(tiledMap);
             currentMap.parceCollisionLayer();
+            currentMap.parceObstalcesLayer();
             mapCache.put(type, currentMap);
         }
 
         spawnCollisionAreas();
+        spawnGameObjects();
         
         for (final MapListener listener : listeners) {
             listener.mapChange(currentMap);
         }
     }
 
+    private void spawnGameObjects() {
+        for (final GameObject gameObject : currentMap.getGameObjects()) {
+            engine.createGameObjects(gameObject);
+        }
+    }
+    private void destroyGameObjects() {
+        for (final Entity entity : engine.getEntities()) {
+            if (ESCEngine.GO_COMPONENT_MAPPER.get(entity)!= null) {
+                gameObjectsToRemove.add(entity);
+            }
+        }
+        for (final Entity entity : gameObjectsToRemove) {
+            engine.removeEntity(entity);
+        }
+    }
     private void destroyCollisionAreas(){
         for (Body body : bodies) {
             if ("GROUND".equals(body.getUserData())) {

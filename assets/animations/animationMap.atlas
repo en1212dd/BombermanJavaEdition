@@ -4,6 +4,20 @@ size: 256, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+bomAnimation
+  rotate: false
+  xy: 118, 62
+  size: 48, 16
+  orig: 48, 16
+  offset: 0, 0
+  index: -1
+bomAnimationTimeOut
+  rotate: false
+  xy: 52, 8
+  size: 48, 16
+  orig: 48, 16
+  offset: 0, 0
+  index: -1
 bombermanSprite
   rotate: false
   xy: 2, 2
@@ -34,7 +48,7 @@ firsEnemy
   index: -1
 speedObjet
   rotate: false
-  xy: 52, 8
+  xy: 118, 44
   size: 32, 16
   orig: 32, 16
   offset: 0, 0

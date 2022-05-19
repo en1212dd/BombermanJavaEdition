@@ -7,8 +7,10 @@ public enum GameKeys {
     DOWN(Keys.S,Keys.DOWN),
     LEFT(Keys.A,Keys.LEFT),
     RIGTH(Keys.D,Keys.RIGHT),
-    SELECT(Keys.ENTER,Keys.SPACE),
-    BACK(Keys.ESCAPE,Keys.BACKSPACE);
+    SELECT(Keys.ENTER),
+    BACK(Keys.BACKSPACE),
+    ATTACK(Keys.E);
+
 
     final int[] keyCodeL;
     private GameKeys(int... keyCodeL) {
@@ -17,6 +19,6 @@ public enum GameKeys {
     public int[] getKeyCodeL() {
         return keyCodeL;
     }
-
+    
 
 }

@@ -2,7 +2,7 @@ package com.bormberman.ui;
 
 public enum AnimationType {
     //PLAYER
-    BOMBERMAN_UP("animations/animationMap.atlas","bombermanSprite",0.15f,0),
+BOMBERMAN_UP("animations/animationMap.atlas","bombermanSprite",0.15f,0),
     BOMBERMAN_LEFT("animations/animationMap.atlas","bombermanSprite",0.15f,1),
     BOMBERMAN_RIGHT("animations/animationMap.atlas","bombermanSprite",0.15f,2),
     BOMBERMAN_DOWN("animations/animationMap.atlas","bombermanSprite",0.15f,3),
@@ -15,7 +15,10 @@ public enum AnimationType {
     ENEMY_RIGHT("animations/animationMap.atlas","firsEnemy",0.15f,3),
     ENEMY_DOWN("animations/animationMap.atlas","firsEnemy",0.15f,0),
     //ENEMY DIE
-    ENEMY_DIE("animations/animationMap.atlas","firsEnemyDie",0.15f,0);
+    ENEMY_DIE("animations/animationMap.atlas","firsEnemyDie",0.15f,0),
+    //BOM
+    BOM_IDLE("animations/animationMap.atlas","bomAnimation",0.15f,0),
+    BOM_TIMEOUT("animations/animationMap.atlas","bomAnimationTimeOut",0.20f,0);
 
     private String atlasPath,atalsKey;
     private float frameTime;
@@ -39,5 +42,6 @@ public enum AnimationType {
     public int getRowIndex() {
         return rowIndex;
     }
+    
 
 }
