@@ -9,15 +9,13 @@ import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
 import com.bormberman.ecs.components.BomComponent;
 import com.bormberman.ecs.components.RemoveComponent;
-import com.bormberman.explosion.ExplosionListener;
 import com.bormberman.ui.AnimationType;
 
-public class ExplotionSystem extends IteratingSystem implements ExplosionListener{
+public class ExplotionSystem extends IteratingSystem{
     private ESCEngine engine;
 
     public ExplotionSystem(Bomberman context, ESCEngine engine) {
         super(Family.all(BomComponent.class, B2DComponent.class, AnimationComponent.class).get());
-        context.getExplosionManager().addListener(this);
         this.engine = engine;
     }
 
@@ -27,21 +25,22 @@ public class ExplotionSystem extends IteratingSystem implements ExplosionListene
         final B2DComponent b2dComponent = ESCEngine.B2_COMPONENT_MAPPER.get(entity);
         final AnimationComponent animationComponent = ESCEngine.A_COMPONENT_MAPPER.get(entity);
 
-        if (bomComponent.timeOfExplote>0) {
+        if (bomComponent.timeOfExplote > 2.5) {
             bomComponent.timeOfExplote -= deltaTime;
-        }else{
+        } else {
             animationComponent.aniType = AnimationType.BOM_TIMEOUT;
-        }
-        if (animationComponent.aniType.equals(AnimationType.BOM_TIMEOUT)) {
-            this.explosinAction(entity);
+            if (bomComponent.timeOfExplote>0) {
+                bomComponent.timeOfExplote-= deltaTime;
+            }else{
+                engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "UP");
+                //engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "RIGTH");
+                //engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "DOWN");
+                //engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "LEFT");
+                entity.add(((ESCEngine) getEngine()).createComponent(RemoveComponent.class));
+            }
         }
 
     }
 
-    @Override
-    public void explosinAction(Entity bom) {
-        bom.add(((ESCEngine)getEngine()).createComponent(RemoveComponent.class));
-        System.out.println("fires");
-    }
 
 }

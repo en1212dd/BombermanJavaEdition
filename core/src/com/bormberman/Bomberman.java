@@ -77,6 +77,7 @@ public class Bomberman extends Game {
 	private ESCEngine escEngine;
 
 	private GameRederer gameRederer;
+
 	@Override
 	public void create() {
 		//set Debug Mode
@@ -107,7 +108,6 @@ public class Bomberman extends Game {
 		setScreen(ScreenType.MENU);
 		//Game Render
 		gameRederer = new GameRederer(this);
-
 	}
 	@Override
 	public void render() {

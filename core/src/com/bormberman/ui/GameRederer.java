@@ -72,7 +72,7 @@ public class GameRederer implements Disposable, MapListener{
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
 
         profiler = new GLProfiler(Gdx.graphics);
-        profiler.disable();
+        profiler.enable();
         if (profiler.isEnabled()) {
             box2dDebugRenderer = new Box2DDebugRenderer();
             world = context.getWorld();
@@ -143,11 +143,18 @@ public class GameRederer implements Disposable, MapListener{
             TextureRegion[][]textureRegions;
             if (aniType.equals(AnimationType.BOM_IDLE) || aniType.equals(AnimationType.BOM_TIMEOUT)) {
                 textureRegions= region.split(16, 16);
+            }else if (aniType.equals(AnimationType.FIRE)){
+                textureRegions= region.split(48, 48);
             }else{
                 textureRegions= region.split(16, 24);
             }
             animation = new Animation<Sprite>(aniType.getFrameTime(), getKeyFrame(textureRegions[aniType.getRowIndex()]));
-            animation.setPlayMode(Animation.PlayMode.LOOP);
+            if (aniType.equals(AnimationType.FIRE)) {
+                animation.setPlayMode(Animation.PlayMode.NORMAL);
+            }else{
+
+                 animation.setPlayMode(Animation.PlayMode.LOOP);
+            }
             animationCache.put(aniType, animation);
         }
         return animation;

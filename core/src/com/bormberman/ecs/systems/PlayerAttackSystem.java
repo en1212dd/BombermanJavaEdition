@@ -13,9 +13,13 @@ import com.bormberman.input.InputManager;
 
 public class PlayerAttackSystem extends IteratingSystem implements InputListener {
     private boolean atack = false;
+    private long nextBom = 0;
+    private long time;
+    private long coolDown;
     private ESCEngine engine;
+
     public PlayerAttackSystem(Bomberman context, ESCEngine engine) {
-        super(Family.all(PlayerComponent.class,B2DComponent.class).get());
+        super(Family.all(PlayerComponent.class, B2DComponent.class).get());
         context.getInputManager().addInputListener(this);
         this.engine = engine;
     }
@@ -24,27 +28,33 @@ public class PlayerAttackSystem extends IteratingSystem implements InputListener
     protected void processEntity(Entity entity, float deltaTime) {
         final PlayerComponent playerComponent = ESCEngine.P_COMPONENT_MAPPER.get(entity);
         final B2DComponent b2dComponent = ESCEngine.B2_COMPONENT_MAPPER.get(entity);
-        if ((deltaTime * 100) >= playerComponent.timeToRecharge && atack ) {
-            engine.createBom(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth );
+        time = System.currentTimeMillis();
+        coolDown = playerComponent.timeToRecharge;
+        if (time > nextBom + coolDown && atack) {
+            engine.createBom(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth);
             atack = false;
-        }       
+            nextBom = time;
+        }
+
     }
 
     @Override
     public void keyPressed(InputManager manager, GameKeys key) {
-         switch (key) {
-             case ATTACK:
-                atack = true;
-                 break;
+        switch (key) {
+            case ATTACK:
+                if (time > nextBom + coolDown) {
+                    atack = true;
+                }
+                break;
             default:
                 break;
-         }   
-        
+        }
+
     }
 
     @Override
     public void keyUp(InputManager manager, GameKeys key) {
-        
+
     }
-    
+
 }

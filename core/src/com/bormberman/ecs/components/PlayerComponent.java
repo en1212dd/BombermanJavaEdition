@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class PlayerComponent implements Component,Poolable {
     public int numberOfBooms;
-    public int timeToRecharge;
+    public long timeToRecharge;
     public Vector2 speed = new Vector2();
     @Override
     public void reset() {

@@ -1,54 +1,61 @@
 
 animationMap.png
-size: 256, 128
+size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 bomAnimation
   rotate: false
-  xy: 118, 62
+  xy: 116, 56
   size: 48, 16
   orig: 48, 16
   offset: 0, 0
   index: -1
 bomAnimationTimeOut
   rotate: false
-  xy: 52, 8
+  xy: 2, 38
   size: 48, 16
   orig: 48, 16
   offset: 0, 0
   index: -1
 bombermanSprite
   rotate: false
-  xy: 2, 2
+  xy: 408, 2
   size: 48, 120
   orig: 48, 120
   offset: 0, 0
   index: -1
 bombermanSpritesDie
   rotate: false
-  xy: 118, 80
+  xy: 244, 98
   size: 96, 24
   orig: 96, 24
   offset: 0, 0
   index: -1
 enemyDie
   rotate: false
-  xy: 118, 106
+  xy: 2, 56
   size: 112, 16
   orig: 112, 16
   offset: 0, 0
   index: -1
+fireAnimation
+  rotate: false
+  xy: 2, 74
+  size: 240, 48
+  orig: 240, 48
+  offset: 0, 0
+  index: -1
 firsEnemy
   rotate: false
-  xy: 52, 26
+  xy: 342, 26
   size: 64, 96
   orig: 64, 96
   offset: 0, 0
   index: -1
 speedObjet
   rotate: false
-  xy: 118, 44
+  xy: 244, 80
   size: 32, 16
   orig: 32, 16
   offset: 0, 0

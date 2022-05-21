@@ -12,14 +12,17 @@ import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
 import com.bormberman.ecs.components.BomComponent;
 import com.bormberman.ecs.components.EnemyComponent;
+import com.bormberman.ecs.components.FireComponent;
 import com.bormberman.ecs.components.GameObjectComponent;
 import com.bormberman.ecs.components.PlayerComponent;
 import com.bormberman.ecs.systems.AnimationMoveEnemySystem;
 import com.bormberman.ecs.systems.AnimationSystem;
 import com.bormberman.ecs.systems.EnemyMovementSystem;
+import com.bormberman.ecs.systems.ExplotionSystem;
 import com.bormberman.ecs.systems.PlayerAnimationSystem;
 import com.bormberman.ecs.systems.PlayerAttackSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
+import com.bormberman.ecs.systems.RemoveSystem;
 import com.bormberman.map.GameObject;
 import com.bormberman.ui.AnimationType;
 
@@ -48,12 +51,14 @@ public class ESCEngine extends PooledEngine{
         this.addSystem(new EnemyMovementSystem(context));
         this.addSystem(new AnimationMoveEnemySystem(context));
         this.addSystem(new PlayerAttackSystem(context, this));
+        this.addSystem(new ExplotionSystem(context, this));
+        this.addSystem(new RemoveSystem());
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
         final Entity player = this.createEntity();
         //Add Components
         final PlayerComponent playerComponent =this.createComponent(PlayerComponent.class);
-        playerComponent.timeToRecharge = 3;
+        playerComponent.timeToRecharge = 1000;
         playerComponent.speed.set(3, 3);
         player.add(playerComponent);
         //box2d component
@@ -197,6 +202,42 @@ public class ESCEngine extends PooledEngine{
         bomEntity.add(animationComponent);
 
         this.addEntity(bomEntity);
+    }
+    public void createFire(Vector2 position, float width, float heigth, String string) {
+        final Entity fireEntity = this.createEntity();
+        //BomComponent
+        final FireComponent fireComponent =  this.createComponent( FireComponent.class);
+        fireComponent.damage = 1;
+        fireComponent.liveTime = 5;
+        fireEntity.add(fireComponent);
+        //B2dcomponent
+        resetBodieAndFixture();
+        final B2DComponent b2dComponent = this.createComponent(B2DComponent.class);
+        BODY_DEF.position.set(position);
+        BODY_DEF.fixedRotation = true;
+        BODY_DEF.type = BodyType.StaticBody;
+        b2dComponent.body = world.createBody(BODY_DEF);
+        b2dComponent.body.setUserData("FIRE");
+        b2dComponent.width = width * 3 ;
+        b2dComponent.heigth = heigth * 3;
+        b2dComponent.renderPosition.set(b2dComponent.body.getPosition());
+
+        FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;
+        FIXTURE_DEF.filter.maskBits = BIT_GROUND;
+        final PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(width * 3, heigth * 3);
+        FIXTURE_DEF.shape = pShape;
+        b2dComponent.body.createFixture(FIXTURE_DEF);
+        pShape.dispose();
+        fireEntity.add(b2dComponent);
+        //Animation
+        final AnimationComponent animationComponent = this.createComponent(AnimationComponent.class);
+        animationComponent.aniType = AnimationType.FIRE;
+        animationComponent.heigth = 48 *UNIT_SCALE;
+        animationComponent.width = 48 *UNIT_SCALE;
+        fireEntity.add(animationComponent);
+
+        this.addEntity(fireEntity);
     }
 
 

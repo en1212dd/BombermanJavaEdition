@@ -9,11 +9,12 @@ public class AnimationComponent implements Component,Poolable{
     public float aniTime;
     public float width;
     public float heigth;
+    public float rotation;
     @Override
     public void reset() {
         aniType = null;
         aniTime =0;
-        width = heigth = 0;
+        width = heigth = rotation =  0;
     }
     
 }
