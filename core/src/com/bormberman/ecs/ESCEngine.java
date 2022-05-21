@@ -19,6 +19,7 @@ import com.bormberman.ecs.systems.AnimationMoveEnemySystem;
 import com.bormberman.ecs.systems.AnimationSystem;
 import com.bormberman.ecs.systems.EnemyMovementSystem;
 import com.bormberman.ecs.systems.ExplotionSystem;
+import com.bormberman.ecs.systems.FireSystem;
 import com.bormberman.ecs.systems.PlayerAnimationSystem;
 import com.bormberman.ecs.systems.PlayerAttackSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
@@ -52,6 +53,7 @@ public class ESCEngine extends PooledEngine{
         this.addSystem(new AnimationMoveEnemySystem(context));
         this.addSystem(new PlayerAttackSystem(context, this));
         this.addSystem(new ExplotionSystem(context, this));
+        this.addSystem(new FireSystem(context, this));
         this.addSystem(new RemoveSystem());
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
