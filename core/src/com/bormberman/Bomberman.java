@@ -53,6 +53,10 @@ public class Bomberman extends Game {
 	public static final FixtureDef FIXTURE_DEF = new FixtureDef();
     public static final short BIT_PLAYER = 1 << 0;
     public static final short BIT_GROUND = 1 << 1;
+	public static final short BIT_BOM = 1<<2;
+	public static final short BIT_ENEMY = 1<<3;
+	public static final short BIT_GAMEOBJECT = 1 <<4;
+	public static final short BIT_FIRE = 1<<5;
 
 	private EnumMap<ScreenType, Screen> screenCache;
 	private FitViewport screenViewport;
@@ -77,6 +81,7 @@ public class Bomberman extends Game {
 	private ESCEngine escEngine;
 
 	private GameRederer gameRederer;
+	private WorldContactManager worldContactListener;
 
 	@Override
 	public void create() {
@@ -86,7 +91,9 @@ public class Bomberman extends Game {
 		accumulator =0;
 		//Box2d stuff
 		Box2D.init();
+		worldContactListener = new WorldContactManager();
 		world= new World(new Vector2(0,0), true);
+		world.setContactListener(worldContactListener);
 		//Initialize AssetManager
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
@@ -195,6 +202,9 @@ public class Bomberman extends Game {
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
+	}
+	public WorldContactManager getWorldContactListener() {
+		return worldContactListener;
 	}
 	public MapManager getMapManager() {
 		return mapManager;

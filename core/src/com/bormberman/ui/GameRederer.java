@@ -72,7 +72,7 @@ public class GameRederer implements Disposable, MapListener{
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
 
         profiler = new GLProfiler(Gdx.graphics);
-        profiler.enable();
+        profiler.disable();
         if (profiler.isEnabled()) {
             box2dDebugRenderer = new Box2DDebugRenderer();
             world = context.getWorld();
