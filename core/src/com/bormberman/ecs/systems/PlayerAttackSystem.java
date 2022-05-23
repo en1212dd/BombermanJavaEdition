@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.bormberman.Bomberman;
+import com.bormberman.audio.AudioType;
 import com.bormberman.ecs.ESCEngine;
 import com.bormberman.ecs.components.B2DComponent;
 import com.bormberman.ecs.components.PlayerComponent;
@@ -17,10 +18,12 @@ public class PlayerAttackSystem extends IteratingSystem implements InputListener
     private long time;
     private long coolDown;
     private ESCEngine engine;
+    private Bomberman context;
 
     public PlayerAttackSystem(Bomberman context, ESCEngine engine) {
         super(Family.all(PlayerComponent.class, B2DComponent.class).get());
         context.getInputManager().addInputListener(this);
+        this.context = context;
         this.engine = engine;
     }
 
@@ -32,6 +35,7 @@ public class PlayerAttackSystem extends IteratingSystem implements InputListener
         coolDown = playerComponent.timeToRecharge;
         if (time > nextBom + coolDown && atack) {
             engine.createBom(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth);
+            context.getAudioManager().playAudio(AudioType.PLACEBOM);
             atack = false;
             nextBom = time;
         }

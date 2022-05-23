@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.bormberman.Bomberman;
+import com.bormberman.audio.AudioType;
 import com.bormberman.ecs.ESCEngine;
 import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
@@ -13,10 +14,11 @@ import com.bormberman.ui.AnimationType;
 
 public class ExplotionSystem extends IteratingSystem{
     private ESCEngine engine;
-
+    private Bomberman context;
     public ExplotionSystem(Bomberman context, ESCEngine engine) {
         super(Family.all(BomComponent.class, B2DComponent.class, AnimationComponent.class).get());
         this.engine = engine;
+        this.context = context;
     }
 
     @Override
@@ -34,6 +36,7 @@ public class ExplotionSystem extends IteratingSystem{
             }else{
                 engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth);
                 entity.add(((ESCEngine) getEngine()).createComponent(RemoveComponent.class));
+                context.getAudioManager().playAudio(AudioType.EXPlOTION);
             }
         }
 

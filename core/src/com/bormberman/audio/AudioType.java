@@ -5,7 +5,12 @@ public enum AudioType {
     SELECT("sounds/choseOption.mp3",false,0.3f),
     STAGE1("sounds/Level_1.mp3",true,0.3f),
     START_PLAY("sounds/Start.mp3",false,0.3f),
-    GAME_OVER("sounds/Game_Over.mp3",true,0.3f);
+    GAME_OVER("sounds/Game_Over.mp3",true,0.3f),
+    DIE_PLAYER("sounds/DiePlayer.ogg",false,0.3f),
+    DIE_ENEMY("sounds/EnemyDie.ogg",false,0.3f),
+    EXPlOTION("sounds/Explosion.ogg",false,0.3f),
+    PLACEBOM("sounds/PlaceBomb.ogg",false,0.3f),
+    TELEPORT("sounds/Teleport.ogg",false,0.3f);
 
     private final String filePath;
     private final boolean isMusic;
