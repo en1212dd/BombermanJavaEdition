@@ -18,6 +18,7 @@ import com.bormberman.ecs.components.PlayerComponent;
 import com.bormberman.ecs.systems.AnimationMoveEnemySystem;
 import com.bormberman.ecs.systems.AnimationSystem;
 import com.bormberman.ecs.systems.BomDestructionSystem;
+import com.bormberman.ecs.systems.DestructionOfGameObject;
 import com.bormberman.ecs.systems.EnemyMovementSystem;
 import com.bormberman.ecs.systems.ExplotionSystem;
 import com.bormberman.ecs.systems.FireSystem;
@@ -61,6 +62,7 @@ public class ESCEngine extends PooledEngine{
         this.addSystem(new ExplotionSystem(context, this));
         this.addSystem(new FireSystem(context, this));
         this.addSystem(new BomDestructionSystem(context, this));
+        this.addSystem(new DestructionOfGameObject(this));
         this.addSystem(new RemoveSystem());
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
@@ -211,7 +213,7 @@ public class ESCEngine extends PooledEngine{
 
         this.addEntity(bomEntity);
     }
-    public void createFire(Vector2 position, float width, float heigth, String string) {
+    public void createFire(Vector2 position, float width, float heigth) {
         final Entity fireEntity = this.createEntity();
         //BomComponent
         final FireComponent fireComponent =  this.createComponent( FireComponent.class);

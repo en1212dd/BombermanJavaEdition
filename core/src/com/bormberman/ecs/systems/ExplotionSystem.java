@@ -32,10 +32,7 @@ public class ExplotionSystem extends IteratingSystem{
             if (bomComponent.timeOfExplote>0) {
                 bomComponent.timeOfExplote-= deltaTime;
             }else{
-                engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "UP");
-                //engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "RIGTH");
-                //engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "DOWN");
-                //engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth, "LEFT");
+                engine.createFire(b2dComponent.body.getPosition(), b2dComponent.width, b2dComponent.heigth);
                 entity.add(((ESCEngine) getEngine()).createComponent(RemoveComponent.class));
             }
         }

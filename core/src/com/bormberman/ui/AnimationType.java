@@ -20,7 +20,9 @@ BOMBERMAN_UP("animations/animationMap.atlas","bombermanSprite",0.15f,0),
     BOM_IDLE("animations/animationMap.atlas","bomAnimation",0.20f,0),
     BOM_TIMEOUT("animations/animationMap.atlas","bomAnimationTimeOut",0.15f,0),
     //FIRE
-    FIRE("animations/animationMap.atlas","fireAnimation",0.15f,0);
+    FIRE("animations/animationMap.atlas","fireAnimation",0.15f,0),
+    //GAMEOBJECT
+    GAME_OBJECT_DEST("animations/animationMap.atlas","objectDestruction",0.15f,0);
 
     private String atlasPath,atalsKey;
     private float frameTime;
