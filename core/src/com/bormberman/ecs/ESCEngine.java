@@ -122,7 +122,7 @@ public class ESCEngine extends PooledEngine{
         b2dComponent.renderPosition.set(b2dComponent.body.getPosition());
 
         FIXTURE_DEF.filter.categoryBits = BIT_ENEMY;
-        FIXTURE_DEF.filter.maskBits = BIT_GROUND | BIT_BOM | BIT_PLAYER | BIT_GAMEOBJECT ;
+        FIXTURE_DEF.filter.maskBits = BIT_GROUND | BIT_BOM | BIT_PLAYER | BIT_GAMEOBJECT | BIT_FIRE;
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(width ,heigth ,b2dComponent.body.getLocalCenter(), 0);
         FIXTURE_DEF.shape = pShape;
@@ -233,7 +233,7 @@ public class ESCEngine extends PooledEngine{
         b2dComponent.renderPosition.set(b2dComponent.body.getPosition());
 
         FIXTURE_DEF.filter.categoryBits = BIT_FIRE;
-        FIXTURE_DEF.filter.maskBits = BIT_GAMEOBJECT | BIT_PLAYER;
+        FIXTURE_DEF.filter.maskBits = BIT_GAMEOBJECT | BIT_PLAYER | BIT_ENEMY;
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(width * 3, heigth * 3);
         FIXTURE_DEF.shape = pShape;

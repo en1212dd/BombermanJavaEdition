@@ -8,8 +8,9 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
 
-import static com.bormberman.Bomberman.BIT_PLAYER;
 import static com.bormberman.Bomberman.BIT_FIRE;
+import static com.bormberman.Bomberman.BIT_PLAYER;
+import static com.bormberman.Bomberman.BIT_GROUND;
 import static com.bormberman.Bomberman.BIT_ENEMY;
 import static com.bormberman.Bomberman.BIT_GAMEOBJECT;
 
@@ -18,24 +19,33 @@ public class WorldContactManager implements ContactListener {
     private final Array<WorlContactListener> enemyCollisions;
     private final Array<WorlContactListener> fireCollisions;
     private final Array<WorlContactListener> gameObjectCollision;
+    private final Array<WorlContactListener> groundCollisions;
 
     public WorldContactManager() {
         playerCollisions = new Array<>();
         enemyCollisions = new Array<>();
         fireCollisions = new Array<>();
         gameObjectCollision = new Array<>();
+        groundCollisions = new Array<>();
     }
+
     public void addCollisionPlayer(WorlContactListener listener) {
         playerCollisions.add(listener);
     }
+
     public void addCollisionEnemy(WorlContactListener listener) {
         enemyCollisions.add(listener);
     }
+
     public void addCollisionFire(WorlContactListener listener) {
         fireCollisions.add(listener);
     }
+
     public void addCollisionGameobject(WorlContactListener listener) {
         gameObjectCollision.add(listener);
+    }
+    public void addCollisionGround(WorlContactListener listener){
+        groundCollisions.add(listener);
     }
 
     @Override
@@ -51,47 +61,58 @@ public class WorldContactManager implements ContactListener {
 
         if ((int) (catFixA & BIT_PLAYER) == BIT_PLAYER) {
             entityA = (Entity) bodyA.getUserData();
-            collisionreacTo(entityA, entityB, bodyB, catFixB,playerCollisions, "player");
+            collisionreacTo(entityA, entityB, bodyB, catFixB, playerCollisions, "player");
         } else if ((int) (catFixA & BIT_FIRE) == BIT_FIRE) {
             entityA = (Entity) bodyA.getUserData();
-            collisionreacTo(entityA, entityB, bodyB, catFixB, fireCollisions,"Fire");
-        }else if ((int) (catFixA & BIT_ENEMY) == BIT_ENEMY) {
+            collisionreacTo(entityA, entityB, bodyB, catFixB, fireCollisions, "Fire");
+        } else if ((int) (catFixA & BIT_ENEMY) == BIT_ENEMY) {
             entityA = (Entity) bodyA.getUserData();
-            collisionreacTo(entityA, entityB, bodyB, catFixB, enemyCollisions,"enemy");
-        }else if((int) (catFixA & BIT_GAMEOBJECT) == BIT_GAMEOBJECT){
+            collisionreacTo(entityA, entityB, bodyB, catFixB, enemyCollisions, "enemy");
+        } else if ((int) (catFixA & BIT_GAMEOBJECT) == BIT_GAMEOBJECT) {
             entityA = (Entity) bodyA.getUserData();
-            collisionreacTo(entityA, entityB, bodyB, catFixB, gameObjectCollision,"gameObject");
+            collisionreacTo(entityA, entityB, bodyB, catFixB, gameObjectCollision, "gameObject");
+        } else if ((int) (catFixA & BIT_GROUND) == BIT_GROUND) {
+            entityA = (Entity) bodyA.getUserData();
+            collisionreacTo(entityA, entityB, bodyB, catFixB, groundCollisions, "ground");
         }
 
     }
 
-    private void collisionreacTo(Entity entityA, Entity entityB, Body bodyB, int catFixB, Array<WorlContactListener> list, String string) {
-            if ((int) (catFixB & BIT_GAMEOBJECT) == BIT_GAMEOBJECT) {
-                entityB = (Entity) bodyB.getUserData();
-                System.out.println(string + " colisiona con gameObject");
-                for (WorlContactListener worlContactListener : list) {
-                    worlContactListener.colisionEntity(entityA, entityB);
-                }
-            }else if ((int) (catFixB & BIT_ENEMY) == BIT_ENEMY) {
-                entityB = (Entity) bodyB.getUserData();
-                System.out.println(string + " colisiona con enemy");
-                for (WorlContactListener worlContactListener : list) {
-                    worlContactListener.colisionEntity(entityA, entityB);
-                }
-            }else if ((int) (catFixB & BIT_FIRE) == BIT_FIRE) {
-                entityB = (Entity) bodyB.getUserData();
-                System.out.println(string + " colisiona con Fire");
-                for (WorlContactListener worlContactListener : list) {
-                    worlContactListener.colisionEntity(entityA, entityB);
-                }
-            }else if ((int) (catFixB & BIT_PLAYER) == BIT_PLAYER) {
-                entityB = (Entity) bodyB.getUserData();
-                System.out.println(string + " colisiona con player");
-                for (WorlContactListener worlContactListener : list) {
-                    worlContactListener.colisionEntity(entityA, entityB);
-                }
+    private void collisionreacTo(Entity entityA, Entity entityB, Body bodyB, int catFixB,
+            Array<WorlContactListener> list, String string) {
+        if ((int) (catFixB & BIT_GAMEOBJECT) == BIT_GAMEOBJECT) {
+            entityB = (Entity) bodyB.getUserData();
+            System.out.println(string + " colisiona con gameObject");
+            for (WorlContactListener worlContactListener : list) {
+                worlContactListener.colisionEntity(entityA, entityB);
             }
+        } else if ((int) (catFixB & BIT_ENEMY) == BIT_ENEMY) {
+            entityB = (Entity) bodyB.getUserData();
+            System.out.println(string + " colisiona con enemy");
+            for (WorlContactListener worlContactListener : list) {
+                worlContactListener.colisionEntity(entityA, entityB);
+            }
+        } else if ((int) (catFixB & BIT_FIRE) == BIT_FIRE) {
+            entityB = (Entity) bodyB.getUserData();
+            System.out.println(string + " colisiona con Fire");
+            for (WorlContactListener worlContactListener : list) {
+                worlContactListener.colisionEntity(entityA, entityB);
+            }
+        } else if ((int) (catFixB & BIT_PLAYER) == BIT_PLAYER) {
+            entityB = (Entity) bodyB.getUserData();
+            System.out.println(string + " colisiona con player");
+            for (WorlContactListener worlContactListener : list) {
+                worlContactListener.colisionEntity(entityA, entityB);
+            }
+        } else if ((int) (catFixB & BIT_GROUND) == BIT_GROUND) {
+            entityB = (Entity) bodyB.getUserData();
+            System.out.println(string + " colisiona con ground");
+            for (WorlContactListener worlContactListener : list) {
+                worlContactListener.colisionEntity(entityA, entityB);
+            }
+        }
     }
+
     @Override
     public void endContact(Contact contact) {
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.bormberman.Bomberman;
 import com.bormberman.ecs.ESCEngine;
+import com.bormberman.ecs.components.GroundComponent;
 
 import static com.bormberman.Bomberman.BODY_DEF;
 import static com.bormberman.Bomberman.FIXTURE_DEF;
@@ -93,7 +94,7 @@ public class MapManager {
     }
     private void destroyCollisionAreas(){
         for (Body body : bodies) {
-            if ("GROUND".equals(body.getUserData())) {
+            if ( ((Entity)body.getUserData()).getComponent(GroundComponent.class) != null) {
                 world.destroyBody(body);
             }
         }
@@ -101,11 +102,14 @@ public class MapManager {
     private void spawnCollisionAreas() {
         resetBodieAndFixture();
         for (final CollisionArea collisionArea : currentMap.getCollisionArea()) {
-
+            final Entity graundEntity = engine.createEntity();
+            final GroundComponent groundComponent = engine.createComponent(GroundComponent.class);
+            groundComponent.name = "GROUND";
+            graundEntity.add(groundComponent);
             BODY_DEF.position.set(collisionArea.getX(), collisionArea.getY());
             BODY_DEF.fixedRotation = true;
             final Body body = world.createBody(BODY_DEF);
-            body.setUserData("GROUND");
+            body.setUserData(graundEntity);
 
             FIXTURE_DEF.filter.categoryBits = BIT_GROUND;
             FIXTURE_DEF.filter.maskBits = -1;
