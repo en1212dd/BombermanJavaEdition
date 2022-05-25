@@ -17,7 +17,7 @@ public class LoadingUI extends Table {
         setFillParent(true);
         i18nBundle = context.getI18nBundle();
         progressBar =  new ProgressBar(0, 1, 0.01f, false,getSkin(),"default");
-        progressBar.setAnimateDuration(1);
+        progressBar.setAnimateDuration(5);
         txtButton =  new TextButton(i18nBundle.format("interface.loading"), getSkin(),"notBackgroundBig");
         txtButton.getLabel().setWrap(true);
 
@@ -32,7 +32,7 @@ public class LoadingUI extends Table {
     }
     public void setProgress( float progress) {
         progressBar.setValue(progress);
-        if (progress>=1 && !pressAnyKeyButton.isVisible()) {
+        if (progressBar.getVisualPercent()>=1 && !pressAnyKeyButton.isVisible()) {
             pressAnyKeyButton.setVisible(true);
             pressAnyKeyButton.setColor(1,1,1,0);
             pressAnyKeyButton.addAction(Actions.forever(Actions.sequence(Actions.alpha(1,1), Actions.alpha(0,1))));

@@ -12,6 +12,7 @@ import com.bormberman.ecs.components.AnimationComponent;
 import com.bormberman.ecs.components.B2DComponent;
 import com.bormberman.ecs.components.BomComponent;
 import com.bormberman.ecs.components.EnemyComponent;
+import com.bormberman.ecs.components.EnemyDieComponent;
 import com.bormberman.ecs.components.FireComponent;
 import com.bormberman.ecs.components.GameObjectComponent;
 import com.bormberman.ecs.components.PlayerComponent;
@@ -19,11 +20,15 @@ import com.bormberman.ecs.systems.AnimationMoveEnemySystem;
 import com.bormberman.ecs.systems.AnimationSystem;
 import com.bormberman.ecs.systems.BomDestructionSystem;
 import com.bormberman.ecs.systems.DestructionOfGameObject;
+import com.bormberman.ecs.systems.EnemyDieAnimationSystem;
+import com.bormberman.ecs.systems.EnemyDieSystem;
 import com.bormberman.ecs.systems.EnemyMovementSystem;
 import com.bormberman.ecs.systems.ExplotionSystem;
 import com.bormberman.ecs.systems.FireSystem;
 import com.bormberman.ecs.systems.PlayerAnimationSystem;
 import com.bormberman.ecs.systems.PlayerAttackSystem;
+import com.bormberman.ecs.systems.PlayerDieAnimationSystem;
+import com.bormberman.ecs.systems.PlayerDieSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
 import com.bormberman.ecs.systems.RemoveSystem;
 import com.bormberman.map.GameObject;
@@ -48,6 +53,7 @@ public class ESCEngine extends PooledEngine{
     public static final ComponentMapper<EnemyComponent> E_COMPONENT_MAPPER = ComponentMapper.getFor(EnemyComponent.class);
     public static final ComponentMapper<GameObjectComponent> GO_COMPONENT_MAPPER = ComponentMapper.getFor(GameObjectComponent.class);
     public static final ComponentMapper<BomComponent> B_COMPONENT_MAPPER = ComponentMapper.getFor(BomComponent.class);
+    public static final ComponentMapper<EnemyDieComponent> EDC_COMPONENT_MAPPER = ComponentMapper.getFor(EnemyDieComponent.class);
     private final World world;
     public ESCEngine(Bomberman context) {
         super();
@@ -63,6 +69,10 @@ public class ESCEngine extends PooledEngine{
         this.addSystem(new FireSystem(context, this));
         this.addSystem(new BomDestructionSystem(context, this));
         this.addSystem(new DestructionOfGameObject(this));
+        this.addSystem(new EnemyDieSystem(context, this));
+        this.addSystem(new EnemyDieAnimationSystem( this));
+        this.addSystem(new PlayerDieSystem(context, this));
+        this.addSystem(new PlayerDieAnimationSystem(this));
         this.addSystem(new RemoveSystem());
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
@@ -71,6 +81,7 @@ public class ESCEngine extends PooledEngine{
         final PlayerComponent playerComponent =this.createComponent(PlayerComponent.class);
         playerComponent.timeToRecharge = 1000;
         playerComponent.speed.set(3, 3);
+        playerComponent.lives = 5;
         player.add(playerComponent);
         //box2d component
         resetBodieAndFixture();
@@ -106,7 +117,7 @@ public class ESCEngine extends PooledEngine{
         final Entity enemy = this.createEntity();
         // add Components
         final EnemyComponent enemyComponent = this.createComponent(EnemyComponent.class);
-        enemyComponent.lives = lives;
+        enemyComponent.lives = 1;
         enemyComponent.velocity.set(velocity);
         enemy.add(enemyComponent);
         //b2dComponent
@@ -122,7 +133,7 @@ public class ESCEngine extends PooledEngine{
         b2dComponent.renderPosition.set(b2dComponent.body.getPosition());
 
         FIXTURE_DEF.filter.categoryBits = BIT_ENEMY;
-        FIXTURE_DEF.filter.maskBits = BIT_GROUND | BIT_BOM | BIT_PLAYER | BIT_GAMEOBJECT | BIT_FIRE;
+        FIXTURE_DEF.filter.maskBits = BIT_GROUND | BIT_BOM | BIT_PLAYER | BIT_GAMEOBJECT | BIT_FIRE|BIT_BOM;
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(width ,heigth ,b2dComponent.body.getLocalCenter(), 0);
         FIXTURE_DEF.shape = pShape;
@@ -197,7 +208,7 @@ public class ESCEngine extends PooledEngine{
         b2dComponent.renderPosition.set(b2dComponent.body.getPosition());
 
         FIXTURE_DEF.filter.categoryBits = BIT_BOM;
-        FIXTURE_DEF.filter.maskBits = BIT_GAMEOBJECT  ;
+        FIXTURE_DEF.filter.maskBits = BIT_GAMEOBJECT | BIT_ENEMY ;
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(width,heigth);
         FIXTURE_DEF.shape = pShape;

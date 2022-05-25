@@ -141,7 +141,7 @@ public class GameRederer implements Disposable, MapListener{
             Gdx.app.debug(TAG, "Creando una nueva animacion de tipo: "+aniType);   
             final AtlasRegion region = assetManager.get(aniType.getAtlasPath(),TextureAtlas.class).findRegion(aniType.getAtalsKey());
             TextureRegion[][]textureRegions;
-            if (aniType.equals(AnimationType.BOM_IDLE) || aniType.equals(AnimationType.BOM_TIMEOUT) || aniType.equals(AnimationType.GAME_OBJECT_DEST)) {
+            if (aniType.equals(AnimationType.BOM_IDLE) || aniType.equals(AnimationType.BOM_TIMEOUT) || aniType.equals(AnimationType.GAME_OBJECT_DEST) || aniType.equals(AnimationType.ENEMY_DIE)) {
                 textureRegions= region.split(16, 16);
             }else if (aniType.equals(AnimationType.FIRE)){
                 textureRegions= region.split(48, 48);
@@ -149,7 +149,7 @@ public class GameRederer implements Disposable, MapListener{
                 textureRegions= region.split(16, 24);
             }
             animation = new Animation<Sprite>(aniType.getFrameTime(), getKeyFrame(textureRegions[aniType.getRowIndex()]));
-            if (aniType.equals(AnimationType.FIRE) || aniType.equals(AnimationType.GAME_OBJECT_DEST)) {
+            if (aniType.equals(AnimationType.FIRE) || aniType.equals(AnimationType.GAME_OBJECT_DEST) || aniType.equals(AnimationType.ENEMY_DIE) || aniType.equals(AnimationType.BOMBERMAN_DIE)) {
                 animation.setPlayMode(Animation.PlayMode.NORMAL);
             }else{
 

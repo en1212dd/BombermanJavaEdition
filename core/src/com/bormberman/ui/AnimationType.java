@@ -15,7 +15,7 @@ BOMBERMAN_UP("animations/animationMap.atlas","bombermanSprite",0.15f,0),
     ENEMY_RIGHT("animations/animationMap.atlas","firsEnemy",0.15f,3),
     ENEMY_DOWN("animations/animationMap.atlas","firsEnemy",0.15f,0),
     //ENEMY DIE
-    ENEMY_DIE("animations/animationMap.atlas","firsEnemyDie",0.15f,0),
+    ENEMY_DIE("animations/animationMap.atlas","enemyDie",0.15f,0),
     //BOM
     BOM_IDLE("animations/animationMap.atlas","bomAnimation",0.20f,0),
     BOM_TIMEOUT("animations/animationMap.atlas","bomAnimationTimeOut",0.15f,0),
