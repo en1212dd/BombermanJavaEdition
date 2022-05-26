@@ -30,6 +30,7 @@ public class GameScreen extends AbstractScreen<GameUi> implements MapListener{
 
         context.getEscEngine().createPlayer(mapManager.getCurrentMap().parcePlayerStartLayer(), 0.47f, 0.47f);
         createEnemys();
+        context.getHudManager().setHud(screenUI);;
     };
 
     private void createEnemys() {

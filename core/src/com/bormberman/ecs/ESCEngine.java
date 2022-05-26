@@ -119,6 +119,7 @@ public class ESCEngine extends PooledEngine{
         final EnemyComponent enemyComponent = this.createComponent(EnemyComponent.class);
         enemyComponent.lives = 1;
         enemyComponent.velocity.set(velocity);
+        enemyComponent.puntation = 100;
         enemy.add(enemyComponent);
         //b2dComponent
         resetBodieAndFixture();

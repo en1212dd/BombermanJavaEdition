@@ -16,7 +16,7 @@ public class GameUi extends Table {
     private float padding = 10f;
 
     private Image playerIcon,timeIcon;
-    private TextButton lives,scoreittle,score,time;
+    public TextButton lives,scoreittle,score,time;
 
     private I18NBundle i18nBundle;
     public GameUi(Bomberman context) {
@@ -32,7 +32,7 @@ public class GameUi extends Table {
         playerIcon = new Image(context.getSkin(),"playerIcon");
         lives = new TextButton("5",context.getSkin(),"hudBackground");
         scoreittle = new TextButton(i18nBundle.format("interface.score"), context.getSkin(),"notBackgroundBig");
-        score = new TextButton("500",context.getSkin(),"hudBackground");
+        score = new TextButton("0",context.getSkin(),"hudBackground");
         timeIcon = new Image(context.getSkin(),"timerIcon");
         time = new TextButton("2:00", context.getSkin(),"hudBackground");
 

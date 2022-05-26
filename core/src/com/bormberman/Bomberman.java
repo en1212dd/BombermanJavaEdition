@@ -82,6 +82,7 @@ public class Bomberman extends Game {
 
 	private GameRederer gameRederer;
 	private WorldContactManager worldContactListener;
+	private HudManager hudManager;
 
 	@Override
 	public void create() {
@@ -104,6 +105,8 @@ public class Bomberman extends Game {
 		//Input creation
 		inputManager = new InputManager();
 		Gdx.input.setInputProcessor(new InputMultiplexer(inputManager,stage));
+		//Hud Manager
+		hudManager = new HudManager();
 		//ECS
 		escEngine = new ESCEngine(this);
 		//map manager
@@ -202,6 +205,9 @@ public class Bomberman extends Game {
 		world.dispose();
 		assetManager.dispose();
 		stage.dispose();
+	}
+	public HudManager getHudManager() {
+		return hudManager;
 	}
 	public WorldContactManager getWorldContactListener() {
 		return worldContactListener;

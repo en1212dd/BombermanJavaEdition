@@ -27,7 +27,7 @@ public class PlayerDieAnimationSystem extends IteratingSystem{
                 
             }
             
-        },1f );
+        },3f );
     }
     
 }

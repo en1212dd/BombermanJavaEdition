@@ -7,10 +7,11 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public class EnemyComponent implements Component, Poolable{
     public int lives;
     public Vector2 velocity = new Vector2();
-
+    public int puntation;
     @Override
     public void reset() {
         lives = 0;
+        puntation =0;
         velocity.set(0, 0);
     }
     
