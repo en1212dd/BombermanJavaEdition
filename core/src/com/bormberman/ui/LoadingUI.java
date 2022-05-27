@@ -17,7 +17,7 @@ public class LoadingUI extends Table {
         setFillParent(true);
         i18nBundle = context.getI18nBundle();
         progressBar =  new ProgressBar(0, 1, 0.01f, false,getSkin(),"default");
-        progressBar.setAnimateDuration(5);
+        progressBar.setAnimateDuration(2);
         txtButton =  new TextButton(i18nBundle.format("interface.loading"), getSkin(),"notBackgroundBig");
         txtButton.getLabel().setWrap(true);
 

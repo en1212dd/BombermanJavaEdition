@@ -31,6 +31,7 @@ import com.bormberman.ecs.systems.PlayerDieAnimationSystem;
 import com.bormberman.ecs.systems.PlayerDieSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
 import com.bormberman.ecs.systems.RemoveSystem;
+import com.bormberman.ecs.systems.TimeSystem;
 import com.bormberman.map.GameObject;
 import com.bormberman.ui.AnimationType;
 
@@ -58,7 +59,7 @@ public class ESCEngine extends PooledEngine{
     public ESCEngine(Bomberman context) {
         super();
         world = context.getWorld();
-
+        this.addSystem(new TimeSystem(context, this));
         this.addSystem(new PlayerMovementSystem(context));
         this.addSystem(new AnimationSystem(context));
         this.addSystem(new PlayerAnimationSystem(context));
