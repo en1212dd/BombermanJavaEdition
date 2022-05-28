@@ -2,8 +2,6 @@ package com.bormberman.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.bormberman.Bomberman;
@@ -25,20 +23,11 @@ public class GameScreen extends AbstractScreen<GameUi> implements MapListener{
         super(contextBomberman);
 
         this.mapManager = context.getMapManager();
-        mapManager.addMapListener(this);
         mapManager.setMap(MapType.MAP_1);
 
-        context.getEscEngine().createPlayer(mapManager.getCurrentMap().parcePlayerStartLayer(), 0.47f, 0.47f);
-        createEnemys();
         context.getHudManager().setHud(screenUI);;
     };
 
-    private void createEnemys() {
-        Array<Vector2> positions = mapManager.getCurrentMap().parceEnemysPositions();
-        for (int i = 0; i < positions.size; i++) {
-            context.getEscEngine().createEnemy(positions.get(i), 0.47f, 0.47f, 2, new Vector2(3,3));
-        }
-    }
 
     @Override
     public void render(float delta) {

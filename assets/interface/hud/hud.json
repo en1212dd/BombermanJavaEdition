@@ -1,4 +1,12 @@
 {
+    "Color": {
+        "white": {
+            "a": 1,
+            "b": 1,
+            "g": 1,
+            "r": 1
+        }
+    },
     "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
         "smille": {
             "font": "font_12",
@@ -30,15 +38,15 @@
             "up": "buttomNormal",
             "disabled": "buttomNormal"
         },
-        "notBackgroudNormal":{
+        "notBackgroudNormal": {
             "font": "font_20"
         },
-        "notBackgroundBig":{
+        "notBackgroundBig": {
             "font": "font_26"
         },
-        "hudBackground":{
-            "font":"font_12",
-            "up":"backgroundHudInformation"
+        "hudBackground": {
+            "font": "font_12",
+            "up": "backgroundHudInformation"
         }
     },
     "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
@@ -46,6 +54,13 @@
             "background": "knobAfter",
             "knob": "knob",
             "knobBefore": "knobBefore"
+        }
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {
+        "normal": {
+            "font": "font_20",
+            "fontColor": "white",
+            "background":"buttomNormalPress"
         }
     }
 }

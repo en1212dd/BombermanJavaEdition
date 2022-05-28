@@ -106,8 +106,8 @@ public class Map {
         }
         return positions;
     }
-    public void parceObstalcesLayer() {
-        final MapLayer gameObLayer = tiledMap.getLayers().get("dsObstacle"); 
+    public void parceObstalcesLayer(String layer) {
+        final MapLayer gameObLayer = tiledMap.getLayers().get(layer); 
         if (gameObLayer == null) {
             Gdx.app.debug(TAG, "No se ha encontrado la capa de objetos");
         }

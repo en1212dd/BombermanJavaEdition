@@ -23,7 +23,6 @@ public class GameUi extends Table {
         super(context.getSkin());
 
         i18nBundle = context.getI18nBundle();
-        setDebug(true,true);
         setPosition(64, 390);
         background("backgroundHud");
         setWidth(widthOfTheHud);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="17" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="97">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="17" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="104">
  <tileset firstgid="1" source="tileSetMap.tsx"/>
  <layer id="1" name="background" width="17" height="13">
   <data encoding="base64">
@@ -78,7 +78,10 @@
   <object id="91" gid="8" x="176" y="64" width="16" height="16"/>
   <object id="92" gid="8" x="176" y="192" width="16" height="16"/>
   <object id="93" gid="8" x="208" y="192" width="16" height="16"/>
-  <object id="95" gid="8" x="176" y="128" width="16" height="16"/>
+  <object id="100" gid="9" x="176" y="128" width="16" height="16"/>
+  <object id="101" gid="9" x="160" y="128" width="16" height="16"/>
+  <object id="102" gid="8" x="160" y="128" width="16" height="16"/>
+  <object id="103" gid="8" x="176" y="128" width="16" height="16"/>
  </objectgroup>
  <objectgroup color="#aa0000" id="4" name="collision">
   <object id="1" x="32.0118" y="16.5359">
@@ -125,7 +128,7 @@
   <object id="41" x="80.0192" y="65.0167" width="15.8747" height="14.9232"/>
   <object id="42" x="80.0626" y="33.0167" width="15.8747" height="14.9232"/>
  </objectgroup>
- <objectgroup id="5" name="positionStartPlayer" visible="0">
+ <objectgroup id="5" name="positionStartPlayer">
   <object id="43" x="40.25" y="23.5">
    <point/>
   </object>

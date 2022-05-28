@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -27,6 +28,7 @@ public class MapManager {
 
     private final AssetManager assetManager;
     private final ESCEngine engine;
+    private final Bomberman context;
 
     private MapType currentMapType;
     private Map currentMap;
@@ -40,6 +42,7 @@ public class MapManager {
         world = context.getWorld();
         assetManager = context.getAssetManager();
         engine = context.getEscEngine();
+        this.context = context;
         bodies = new Array<>();
         mapCache = new EnumMap<>(MapType.class);
         listeners = new Array<>();
@@ -65,7 +68,10 @@ public class MapManager {
             final TiledMap tiledMap = assetManager.get(type.getFilePath(),TiledMap.class);
             currentMap = new Map(tiledMap);
             currentMap.parceCollisionLayer();
-            currentMap.parceObstalcesLayer();
+            currentMap.parceObstalcesLayer("portal");
+            currentMap.parceObstalcesLayer("dsObstacle");
+            context.getEscEngine().createPlayer(currentMap.parcePlayerStartLayer(), 0.47f, 0.47f);
+            createEnemys();
             mapCache.put(type, currentMap);
         }
 
@@ -76,6 +82,12 @@ public class MapManager {
             listener.mapChange(currentMap);
         }
     }
+    private void createEnemys() {
+        Array<Vector2> positions = currentMap.parceEnemysPositions();
+        for (int i = 0; i < positions.size; i++) {
+            context.getEscEngine().createEnemy(positions.get(i), 0.47f, 0.47f, 2, new Vector2(3,3));
+        }
+    }
 
     private void spawnGameObjects() {
         for (final GameObject gameObject : currentMap.getGameObjects()) {
@@ -84,9 +96,7 @@ public class MapManager {
     }
     private void destroyGameObjects() {
         for (final Entity entity : engine.getEntities()) {
-            if (ESCEngine.GO_COMPONENT_MAPPER.get(entity)!= null) {
                 gameObjectsToRemove.add(entity);
-            }
         }
         for (final Entity entity : gameObjectsToRemove) {
             engine.removeEntity(entity);

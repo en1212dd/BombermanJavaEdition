@@ -30,6 +30,7 @@ import com.bormberman.ecs.systems.PlayerAttackSystem;
 import com.bormberman.ecs.systems.PlayerDieAnimationSystem;
 import com.bormberman.ecs.systems.PlayerDieSystem;
 import com.bormberman.ecs.systems.PlayerMovementSystem;
+import com.bormberman.ecs.systems.PortalSystem;
 import com.bormberman.ecs.systems.RemoveSystem;
 import com.bormberman.ecs.systems.TimeSystem;
 import com.bormberman.map.GameObject;
@@ -60,6 +61,7 @@ public class ESCEngine extends PooledEngine{
         super();
         world = context.getWorld();
         this.addSystem(new TimeSystem(context, this));
+        this.addSystem(new PortalSystem(context));
         this.addSystem(new PlayerMovementSystem(context));
         this.addSystem(new AnimationSystem(context));
         this.addSystem(new PlayerAnimationSystem(context));
@@ -73,7 +75,7 @@ public class ESCEngine extends PooledEngine{
         this.addSystem(new EnemyDieSystem(context, this));
         this.addSystem(new EnemyDieAnimationSystem( this));
         this.addSystem(new PlayerDieSystem(context, this));
-        this.addSystem(new PlayerDieAnimationSystem(this));
+        this.addSystem(new PlayerDieAnimationSystem(context,this));
         this.addSystem(new RemoveSystem());
     }
     public void createPlayer(final Vector2 startSpawnLocation, final float width,final float heigth) {
