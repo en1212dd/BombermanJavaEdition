@@ -44,6 +44,10 @@
         "notBackgroundBig": {
             "font": "font_26"
         },
+        "label":{
+            "font":"font_20",
+            "up":"buttomNormalPress"
+        },
         "hudBackground": {
             "font": "font_12",
             "up": "backgroundHudInformation"

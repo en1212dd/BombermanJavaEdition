@@ -1,22 +1,19 @@
 package com.bormberman.screens;
 
 import com.bormberman.Bomberman;
-import com.bormberman.audio.AudioType;
 import com.bormberman.input.GameKeys;
 import com.bormberman.input.InputManager;
-import com.bormberman.ui.GameOverUi;
+import com.bormberman.ui.RankingUi;
 
-public class GameOverScreen extends AbstractScreen<GameOverUi> {
-    private final boolean isfirstTime = true;
-    public GameOverScreen(Bomberman context) {
+public class RankingScreen extends AbstractScreen<RankingUi>{
+
+    public RankingScreen(Bomberman context) {
         super(context);
     }
 
     @Override
     public void render(float delta) {
-        if (isfirstTime) {
-            context.getAudioManager().playAudio(AudioType.GAME_OVER);
-        }
+        
     }
 
     @Override
@@ -31,11 +28,11 @@ public class GameOverScreen extends AbstractScreen<GameOverUi> {
 
     @Override
     public void dispose() {
+        
     }
 
     @Override
     public void keyPressed(InputManager manager, GameKeys key) {
-        
     }
 
     @Override
@@ -44,8 +41,8 @@ public class GameOverScreen extends AbstractScreen<GameOverUi> {
     }
 
     @Override
-    protected GameOverUi getScreenUI(Bomberman context) {
-        return new GameOverUi(context);
+    protected RankingUi getScreenUI(Bomberman context) {
+        return new RankingUi(context);
     }
     
 }

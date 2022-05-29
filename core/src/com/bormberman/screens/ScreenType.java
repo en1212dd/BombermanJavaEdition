@@ -6,7 +6,8 @@ public enum ScreenType {
     GAME(GameScreen.class),
     LOADING(LoadingScreen.class),  
     MENU(MenuScreen.class),
-    GAME_OVER(GameOverScreen.class);
+    GAME_OVER(GameOverScreen.class),
+    RANKING(RankingScreen.class);
 
 
     private final Class<? extends AbstractScreen<?>> screenClass;

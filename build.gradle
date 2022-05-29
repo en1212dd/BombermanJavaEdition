@@ -45,6 +45,9 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
+        // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+        implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.29'
+
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"

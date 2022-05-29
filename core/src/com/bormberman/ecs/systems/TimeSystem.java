@@ -17,7 +17,7 @@ import com.bormberman.ui.GameUi;
 
 public class TimeSystem extends IteratingSystem implements HudListener{
 
-    private LocalTime date = LocalTime.of(0,3,0);
+    private LocalTime date = LocalTime.of(0,0,2);
     private ESCEngine engine;
     private Bomberman context;
     private String TAG = this.getClass().getSimpleName();
