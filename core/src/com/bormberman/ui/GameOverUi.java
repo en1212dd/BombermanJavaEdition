@@ -24,7 +24,6 @@ public class GameOverUi extends Table implements HudListener{
         super(context.getSkin());
         i18nBundle = context.getI18nBundle();
         setFillParent(true);
-        setDebug(true,true);
         setBackground("background");
         context.getHudManager().addListener(TAG, this);
 

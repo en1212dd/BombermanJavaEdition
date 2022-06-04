@@ -15,6 +15,7 @@ import com.bormberman.map.GameObjectType;
 import com.bormberman.map.Map;
 import com.bormberman.map.MapListener;
 import com.bormberman.map.MapType;
+import com.bormberman.screens.ScreenType;
 
 public class PortalSystem extends IteratingSystem implements WorlContactListener, MapListener {
     private Bomberman context;
@@ -41,6 +42,9 @@ public class PortalSystem extends IteratingSystem implements WorlContactListener
         if (entityB.getComponent(PlayerComponent.class) != null) {
             if (entityA.getComponent(GameObjectComponent.class) != null) {
                 if (entityA.getComponent(GameObjectComponent.class).type.equals(GameObjectType.PORTAL)) {
+                    if (context.getMapManager().getMapCache().containsKey(MapType.MAP_2)) {
+                        context.setScreen(ScreenType.GAME_OVER);
+                    }
                     Timer.schedule(new Task() {
 
                         @Override

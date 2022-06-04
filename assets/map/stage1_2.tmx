@@ -39,7 +39,7 @@
  <objectgroup id="6" name="portal">
   <object id="113" gid="13" x="176" y="192" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="7" name="dsObstacle">
+ <objectgroup id="7" name="dsObstacle" visible="0">
   <object id="44" gid="8" x="64" y="32" width="16" height="16"/>
   <object id="45" gid="8" x="80" y="32" width="16" height="16"/>
   <object id="46" gid="8" x="96" y="32" width="16" height="16"/>

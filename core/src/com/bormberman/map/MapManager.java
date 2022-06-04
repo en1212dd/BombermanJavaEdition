@@ -133,5 +133,8 @@ public class MapManager {
     public Map getCurrentMap() {
         return currentMap;
     }
+    public EnumMap<MapType, Map> getMapCache() {
+        return mapCache;
+    }
         
 }
